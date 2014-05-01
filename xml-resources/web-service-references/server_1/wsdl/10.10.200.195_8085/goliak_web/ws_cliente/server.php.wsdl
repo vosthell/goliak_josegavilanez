@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://10.10.200.195/soap/hey2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://10.10.200.195/soap/hey2">
+<types>
+<xsd:schema targetNamespace="http://10.10.200.195/soap/hey2"
+>
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+</xsd:schema>
+</types>
+<message name="helloRequest"></message>
+<message name="helloResponse"></message>
+<portType name="hey2PortType">
+  <operation name="hello">
+    <input message="tns:helloRequest"/>
+    <output message="tns:helloResponse"/>
+  </operation>
+</portType>
+<binding name="hey2Binding" type="tns:hey2PortType">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="hello">
+    <soap:operation soapAction="http://10.10.200.195/goliak_web/ws_cliente/server.php/hello" style="rpc"/>
+    <input><soap:body use="encoded" namespace="" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+</binding>
+<service name="hey2">
+  <port name="hey2Port" binding="tns:hey2Binding">
+    <soap:address location="http://10.10.200.195:8085/goliak_web/ws_cliente/server.php?debug=1"/>
+  </port>
+</service>
+</definitions><!--
+2013-10-17 02:01:38.666945 soap_server: _SERVER is defined:
+array(39) {
+  ["MIBDIRS"]=>
+  string(24) "C:/xampp/php/extras/mibs"
+  ["MYSQL_HOME"]=>
+  string(16) "\xampp\mysql\bin"
+  ["OPENSSL_CONF"]=>
+  string(31) "C:/xampp/apache/bin/openssl.cnf"
+  ["PHP_PEAR_SYSCONF_DIR"]=>
+  string(10) "\xampp\php"
+  ["PHPRC"]=>
+  string(10) "\xampp\php"
+  ["TMP"]=>
+  string(10) "\xampp\tmp"
+  ["HTTP_CACHE_CONTROL"]=>
+  string(8) "no-cache"
+  ["HTTP_PRAGMA"]=>
+  string(8) "no-cache"
+  ["HTTP_USER_AGENT"]=>
+  string(13) "Java/1.7.0_15"
+  ["HTTP_HOST"]=>
+  string(18) "10.10.200.195:8085"
+  ["HTTP_ACCEPT"]=>
+  string(52) "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2"
+  ["HTTP_CONNECTION"]=>
+  string(10) "keep-alive"
+  ["PATH"]=>
+  string(436) "D:\Oracle\product\10.1.0\Client_1\bin;C:\orant\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\DMIX;C:\Program Files\NTRU Cryptosystems\NTRU TCG Software Stack\bin\;C:\orant\jdk\bin;C:\Program Files\Windows Imaging\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Codebox\BitMeterOS"
+  ["SystemRoot"]=>
+  string(10) "C:\Windows"
+  ["COMSPEC"]=>
+  string(27) "C:\Windows\system32\cmd.exe"
+  ["PATHEXT"]=>
+  string(53) ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC"
+  ["WINDIR"]=>
+  string(10) "C:\Windows"
+  ["SERVER_SIGNATURE"]=>
+  string(99) "<address>Apache/2.4.3 (Win32) OpenSSL/1.0.1c PHP/5.4.7 Server at 10.10.200.195 Port 8085</address>
+"
+  ["SERVER_SOFTWARE"]=>
+  string(45) "Apache/2.4.3 (Win32) OpenSSL/1.0.1c PHP/5.4.7"
+  ["SERVER_NAME"]=>
+  string(13) "10.10.200.195"
+  ["SERVER_ADDR"]=>
+  string(13) "10.10.200.195"
+  ["SERVER_PORT"]=>
+  string(4) "8085"
+  ["REMOTE_ADDR"]=>
+  string(13) "10.10.200.195"
+  ["DOCUMENT_ROOT"]=>
+  string(15) "C:/xampp/htdocs"
+  ["REQUEST_SCHEME"]=>
+  string(4) "http"
+  ["CONTEXT_PREFIX"]=>
+  string(0) ""
+  ["CONTEXT_DOCUMENT_ROOT"]=>
+  string(15) "C:/xampp/htdocs"
+  ["SERVER_ADMIN"]=>
+  string(20) "postmaster@localhost"
+  ["SCRIPT_FILENAME"]=>
+  string(48) "C:/xampp/htdocs/goliak_web/ws_cliente/server.php"
+  ["REMOTE_PORT"]=>
+  string(5) "10850"
+  ["GATEWAY_INTERFACE"]=>
+  string(7) "CGI/1.1"
+  ["SERVER_PROTOCOL"]=>
+  string(8) "HTTP/1.1"
+  ["REQUEST_METHOD"]=>
+  string(3) "GET"
+  ["QUERY_STRING"]=>
+  string(4) "wsdl"
+  ["REQUEST_URI"]=>
+  string(38) "/goliak_web/ws_cliente/server.php?wsdl"
+  ["SCRIPT_NAME"]=>
+  string(33) "/goliak_web/ws_cliente/server.php"
+  ["PHP_SELF"]=>
+  string(33) "/goliak_web/ws_cliente/server.php"
+  ["REQUEST_TIME_FLOAT"]=>
+  float(1381968098.649)
+  ["REQUEST_TIME"]=>
+  int(1381968098)
+}
+2013-10-17 02:01:38.667053 soap_server: In nusoap_server, set debug_flag=1 based on global flag
+2013-10-17 02:01:38.667223 soap_server: In service, request method=GET query string=wsdl strlen($data)=0
+2013-10-17 02:01:38.667244 soap_server: In service, this is a request for WSDL
+2013-10-17 02:01:38.667261 soap_server: In service, serialize WSDL
+2013-10-17 02:01:38.667332 soap_server: wsdl:
+object(wsdl)#2 (50) {
+  ["wsdl"]=>
+  string(0) ""
+  ["schemas"]=>
+  array(1) {
+    ["http://10.10.200.195/soap/hey2"]=>
+    array(1) {
+      [0]=>
+      object(nusoap_xmlschema)#3 (35) {
+        ["schema"]=>
+        string(0) ""
+        ["xml"]=>
+        string(0) ""
+        ["enclosingNamespaces"]=>
+        array(7) {
+          ["SOAP-ENV"]=>
+          string(41) "http://schemas.xmlsoap.org/soap/envelope/"
+          ["xsd"]=>
+          string(32) "http://www.w3.org/2001/XMLSchema"
+          ["xsi"]=>
+          string(41) "http://www.w3.org/2001/XMLSchema-instance"
+          ["SOAP-ENC"]=>
+          string(41) "http://schemas.xmlsoap.org/soap/encoding/"
+          ["tns"]=>
+          string(30) "http://10.10.200.195/soap/hey2"
+          ["soap"]=>
+          string(37) "http://schemas.xmlsoap.org/wsdl/soap/"
+          ["wsdl"]=>
+          string(32) "http://schemas.xmlsoap.org/wsdl/"
+        }
+        ["schemaInfo"]=>
+        array(0) {
+        }
+        ["schemaTargetNamespace"]=>
+        string(30) "http://10.10.200.195/soap/hey2"
+        ["attributes"]=>
+        array(0) {
+        }
+        ["complexTypes"]=>
+        array(0) {
+        }
+        ["complexTypeStack"]=>
+        array(0) {
+        }
+        ["currentComplexType"]=>
+        NULL
+        ["elements"]=>
+        array(0) {
+        }
+        ["elementStack"]=>
+        array(0) {
+        }
+        ["currentElement"]=>
+        NULL
+        ["simpleTypes"]=>
+        array(0) {
+        }
+        ["simpleTypeStack"]=>
+        array(0) {
+        }
+        ["currentSimpleType"]=>
+        NULL
+        ["imports"]=>
+        array(2) {
+          ["http://schemas.xmlsoap.org/soap/encoding/"]=>
+          array(1) {
+            [0]=>
+            array(2) {
+              ["location"]=>
+              string(0) ""
+              ["loaded"]=>
+              bool(true)
+            }
+          }
+          ["http://schemas.xmlsoap.org/wsdl/"]=>
+          array(1) {
+            [0]=>
+            array(2) {
+              ["location"]=>
+              string(0) ""
+              ["loaded"]=>
+              bool(true)
+            }
+          }
+        }
+        ["parser"]=>
+        NULL
+        ["position"]=>
+        int(0)
+        ["depth"]=>
+        int(0)
+        ["depth_array"]=>
+        array(0) {
+        }
+        ["message"]=>
+        array(0) {
+        }
+        ["defaultNamespace"]=>
+        array(0) {
+        }
+        ["title"]=>
+        string(6) "NuSOAP"
+        ["version"]=>
+        string(5) "0.9.5"
+        ["revision"]=>
+        string(18) "$Revision: 1.123 $"
+        ["error_str"]=>
+        string(0) ""
+        ["debug_str"]=>
+        string(101) "2013-10-17 02:01:38.667170 nusoap_xmlschema: nusoap_xmlschema class instantiated, inside constructor
+"
+        ["charencoding"]=>
+        bool(true)
+        ["debugLevel"]=>
+        int(9)
+        ["XMLSchemaVersion"]=>
+        string(32) "http://www.w3.org/2001/XMLSchema"
+        ["soap_defencoding"]=>
+        string(10) "ISO-8859-1"
+        ["namespaces"]=>
+        array(7) {
+          ["SOAP-ENV"]=>
+          string(41) "http://schemas.xmlsoap.org/soap/envelope/"
+          ["xsd"]=>
+          string(32) "http://www.w3.org/2001/XMLSchema"
+          ["xsi"]=>
+          string(41) "http://www.w3.org/2001/XMLSchema-instance"
+          ["SOAP-ENC"]=>
+          string(41) "http://schemas.xmlsoap.org/soap/encoding/"
+          ["tns"]=>
+          string(30) "http://10.10.200.195/soap/hey2"
+          ["soap"]=>
+          string(37) "http://schemas.xmlsoap.org/wsdl/soap/"
+          ["wsdl"]=>
+          string(32) "http://schemas.xmlsoap.org/wsdl/"
+        }
+        ["usedNamespaces"]=>
+        array(1) {
+          ["xsd"]=>
+          string(32) "http://www.w3.org/2001/XMLSchema"
+        }
+        ["typemap"]=>
+        array(6) {
+          ["http://www.w3.org/2001/XMLSchema"]=>
+          array(43) {
+            ["string"]=>
+            string(6) "string"
+            ["boolean"]=>
+            string(7) "boolean"
+            ["float"]=>
+            string(6) "double"
+            ["double"]=>
+            string(6) "double"
+            ["decimal"]=>
+            string(6) "double"
+            ["duration"]=>
+            string(0) ""
+            ["dateTime"]=>
+            string(6) "string"
+            ["time"]=>
+            string(6) "string"
+            ["date"]=>
+            string(6) "string"
+            ["gYearMonth"]=>
+            string(0) ""
+            ["gYear"]=>
+            string(0) ""
+            ["gMonthDay"]=>
+            string(0) ""
+            ["gDay"]=>
+            string(0) ""
+            ["gMonth"]=>
+            string(0) ""
+            ["hexBinary"]=>
+            string(6) "string"
+            ["base64Binary"]=>
+            string(6) "string"
+            ["anyType"]=>
+            string(6) "string"
+            ["anySimpleType"]=>
+            string(6) "string"
+            ["normalizedString"]=>
+            string(6) "string"
+            ["token"]=>
+            string(6) "string"
+            ["language"]=>
+            string(0) ""
+            ["NMTOKEN"]=>
+            string(0) ""
+            ["NMTOKENS"]=>
+            string(0) ""
+            ["Name"]=>
+            string(0) ""
+            ["NCName"]=>
+            string(0) ""
+            ["ID"]=>
+            string(0) ""
+            ["IDREF"]=>
+            string(0) ""
+            ["IDREFS"]=>
+            string(0) ""
+            ["ENTITY"]=>
+            string(0) ""
+            ["ENTITIES"]=>
+            string(0) ""
+            ["integer"]=>
+            string(7) "integer"
+            ["nonPositiveInteger"]=>
+            string(7) "integer"
+            ["negativeInteger"]=>
+            string(7) "integer"
+            ["long"]=>
+            string(7) "integer"
+            ["int"]=>
+            string(7) "integer"
+            ["short"]=>
+            string(7) "integer"
+            ["byte"]=>
+            string(7) "integer"
+            ["nonNegativeInteger"]=>
+            string(7) "integer"
+            ["unsignedLong"]=>
+            string(0) ""
+            ["unsignedInt"]=>
+            string(0) ""
+            ["unsignedShort"]=>
+            string(0) ""
+            ["unsignedByte"]=>
+            string(0) ""
+            ["positiveInteger"]=>
+            string(0) ""
+          }
+          ["http://www.w3.org/2000/10/XMLSchema"]=>
+          array(11) {
+            ["i4"]=>
+            string(0) ""
+            ["int"]=>
+            string(7) "integer"
+            ["boolean"]=>
+            string(7) "boolean"
+            ["string"]=>
+            string(6) "string"
+            ["double"]=>
+            string(6) "double"
+            ["float"]=>
+            string(6) "double"
+            ["dateTime"]=>
+            string(6) "string"
+            ["timeInstant"]=>
+            string(6) "string"
+            ["base64Binary"]=>
+            string(6) "string"
+            ["base64"]=>
+            string(6) "string"
+            ["ur-type"]=>
+            string(5) "array"
+          }
+          ["http://www.w3.org/1999/XMLSchema"]=>
+          array(11) {
+            ["i4"]=>
+            string(0) ""
+            ["int"]=>
+            string(7) "integer"
+            ["boolean"]=>
+            string(7) "boolean"
+            ["string"]=>
+            string(6) "string"
+            ["double"]=>
+            string(6) "double"
+            ["float"]=>
+            string(6) "double"
+            ["dateTime"]=>
+            string(6) "string"
+            ["timeInstant"]=>
+            string(6) "string"
+            ["base64Binary"]=>
+            string(6) "string"
+            ["base64"]=>
+            string(6) "string"
+            ["ur-type"]=>
+            string(5) "array"
+          }
+          ["http://soapinterop.org/xsd"]=>
+          array(1) {
+            ["SOAPStruct"]=>
+            string(6) "struct"
+          }
+          ["http://schemas.xmlsoap.org/soap/encoding/"]=>
+          array(3) {
+            ["base64"]=>
+            string(6) "string"
+            ["array"]=>
+            string(5) "array"
+            ["Array"]=>
+            string(5) "array"
+          }
+          ["http://xml.apache.org/xml-soap"]=>
+          array(1) {
+            [0]=>
+            string(3) "Map"
+          }
+        }
+        ["xmlEntities"]=>
+        array(5) {
+          ["quot"]=>
+          string(1) """
+          ["amp"]=>
+          string(1) "&"
+          ["lt"]=>
+          string(1) "<"
+          ["gt"]=>
+          string(1) ">"
+          ["apos"]=>
+          string(1) "'"
+        }
+      }
+    }
+  }
+  ["currentSchema"]=>
+  NULL
+  ["message"]=>
+  array(0) {
+  }
+  ["complexTypes"]=>
+  array(0) {
+  }
+  ["messages"]=>
+  array(2) {
+    ["helloRequest"]=>
+    string(1) "0"
+    ["helloResponse"]=>
+    string(1) "0"
+  }
+  ["currentMessage"]=>
+  NULL
+  ["currentOperation"]=>
+  NULL
+  ["portTypes"]=>
+  array(0) {
+  }
+  ["currentPortType"]=>
+  NULL
+  ["bindings"]=>
+  array(1) {
+    ["hey2Binding"]=>
+    array(5) {
+      ["name"]=>
+      string(11) "hey2Binding"
+      ["style"]=>
+      string(3) "rpc"
+      ["transport"]=>
+      string(36) "http://schemas.xmlsoap.org/soap/http"
+      ["portType"]=>
+      string(12) "hey2PortType"
+      ["operations"]=>
+      array(1) {
+        ["hello"]=>
+        array(10) {
+          ["name"]=>
+          string(5) "hello"
+          ["binding"]=>
+          string(11) "hey2Binding"
+          ["endpoint"]=>
+          string(58) "http://10.10.200.195:8085/goliak_web/ws_cliente/server.php"
+          ["soapAction"]=>
+          string(59) "http://10.10.200.195/goliak_web/ws_cliente/server.php/hello"
+          ["style"]=>
+          string(3) "rpc"
+          ["input"]=>
+          array(5) {
+            ["use"]=>
+            string(7) "encoded"
+            ["namespace"]=>
+            bool(false)
+            ["encodingStyle"]=>
+            string(41) "http://schemas.xmlsoap.org/soap/encoding/"
+            ["message"]=>
+            string(12) "helloRequest"
+            ["parts"]=>
+            array(0) {
+            }
+          }
+          ["output"]=>
+          array(5) {
+            ["use"]=>
+            string(7) "encoded"
+            ["namespace"]=>
+            bool(false)
+            ["encodingStyle"]=>
+            string(41) "http://schemas.xmlsoap.org/soap/encoding/"
+            ["message"]=>
+            string(13) "helloResponse"
+            ["parts"]=>
+            array(0) {
+            }
+          }
+          ["namespace"]=>
+          bool(false)
+          ["transport"]=>
+          string(36) "http://schemas.xmlsoap.org/soap/http"
+          ["documentation"]=>
+          string(0) ""
+        }
+      }
+    }
+  }
+  ["currentBinding"]=>
+  NULL
+  ["ports"]=>
+  array(1) {
+    ["hey2Port"]=>
+    array(3) {
+      ["binding"]=>
+      string(11) "hey2Binding"
+      ["location"]=>
+      string(58) "http://10.10.200.195:8085/goliak_web/ws_cliente/server.php"
+      ["bindingType"]=>
+      string(37) "http://schemas.xmlsoap.org/wsdl/soap/"
+    }
+  }
+  ["currentPort"]=>
+  NULL
+  ["opData"]=>
+  array(0) {
+  }
+  ["status"]=>
+  string(0) ""
+  ["documentation"]=>
+  bool(false)
+  ["endpoint"]=>
+  string(58) "http://10.10.200.195:8085/goliak_web/ws_cliente/server.php"
+  ["import"]=>
+  array(0) {
+  }
+  ["parser"]=>
+  NULL
+  ["position"]=>
+  int(0)
+  ["depth"]=>
+  int(0)
+  ["depth_array"]=>
+  array(0) {
+  }
+  ["proxyhost"]=>
+  bool(false)
+  ["proxyport"]=>
+  bool(false)
+  ["proxyusername"]=>
+  bool(false)
+  ["proxypassword"]=>
+  bool(false)
+  ["timeout"]=>
+  int(0)
+  ["response_timeout"]=>
+  int(30)
+  ["curl_options"]=>
+  array(0) {
+  }
+  ["use_curl"]=>
+  bool(false)
+  ["username"]=>
+  string(0) ""
+  ["password"]=>
+  string(0) ""
+  ["authtype"]=>
+  string(0) ""
+  ["certRequest"]=>
+  array(0) {
+  }
+  ["title"]=>
+  string(6) "NuSOAP"
+  ["version"]=>
+  string(5) "0.9.5"
+  ["revision"]=>
+  string(18) "$Revision: 1.123 $"
+  ["error_str"]=>
+  string(0) ""
+  ["debug_str"]=>
+  string(136) "2013-10-17 02:01:38.667104 wsdl: ctor wsdl= timeout=0 response_timeout=30
+2013-10-17 02:01:38.667122 wsdl: parse and process WSDL path=
+"
+  ["charencoding"]=>
+  bool(true)
+  ["debugLevel"]=>
+  int(9)
+  ["XMLSchemaVersion"]=>
+  string(32) "http://www.w3.org/2001/XMLSchema"
+  ["soap_defencoding"]=>
+  string(10) "ISO-8859-1"
+  ["namespaces"]=>
+  array(7) {
+    ["SOAP-ENV"]=>
+    string(41) "http://schemas.xmlsoap.org/soap/envelope/"
+    ["xsd"]=>
+    string(32) "http://www.w3.org/2001/XMLSchema"
+    ["xsi"]=>
+    string(41) "http://www.w3.org/2001/XMLSchema-instance"
+    ["SOAP-ENC"]=>
+    string(41) "http://schemas.xmlsoap.org/soap/encoding/"
+    ["tns"]=>
+    string(30) "http://10.10.200.195/soap/hey2"
+    ["soap"]=>
+    string(37) "http://schemas.xmlsoap.org/wsdl/soap/"
+    ["wsdl"]=>
+    string(32) "http://schemas.xmlsoap.org/wsdl/"
+  }
+  ["usedNamespaces"]=>
+  array(0) {
+  }
+  ["typemap"]=>
+  array(6) {
+    ["http://www.w3.org/2001/XMLSchema"]=>
+    array(43) {
+      ["string"]=>
+      string(6) "string"
+      ["boolean"]=>
+      string(7) "boolean"
+      ["float"]=>
+      string(6) "double"
+      ["double"]=>
+      string(6) "double"
+      ["decimal"]=>
+      string(6) "double"
+      ["duration"]=>
+      string(0) ""
+      ["dateTime"]=>
+      string(6) "string"
+      ["time"]=>
+      string(6) "string"
+      ["date"]=>
+      string(6) "string"
+      ["gYearMonth"]=>
+      string(0) ""
+      ["gYear"]=>
+      string(0) ""
+      ["gMonthDay"]=>
+      string(0) ""
+      ["gDay"]=>
+      string(0) ""
+      ["gMonth"]=>
+      string(0) ""
+      ["hexBinary"]=>
+      string(6) "string"
+      ["base64Binary"]=>
+      string(6) "string"
+      ["anyType"]=>
+      string(6) "string"
+      ["anySimpleType"]=>
+      string(6) "string"
+      ["normalizedString"]=>
+      string(6) "string"
+      ["token"]=>
+      string(6) "string"
+      ["language"]=>
+      string(0) ""
+      ["NMTOKEN"]=>
+      string(0) ""
+      ["NMTOKENS"]=>
+      string(0) ""
+      ["Name"]=>
+      string(0) ""
+      ["NCName"]=>
+      string(0) ""
+      ["ID"]=>
+      string(0) ""
+      ["IDREF"]=>
+      string(0) ""
+      ["IDREFS"]=>
+      string(0) ""
+      ["ENTITY"]=>
+      string(0) ""
+      ["ENTITIES"]=>
+      string(0) ""
+      ["integer"]=>
+      string(7) "integer"
+      ["nonPositiveInteger"]=>
+      string(7) "integer"
+      ["negativeInteger"]=>
+      string(7) "integer"
+      ["long"]=>
+      string(7) "integer"
+      ["int"]=>
+      string(7) "integer"
+      ["short"]=>
+      string(7) "integer"
+      ["byte"]=>
+      string(7) "integer"
+      ["nonNegativeInteger"]=>
+      string(7) "integer"
+      ["unsignedLong"]=>
+      string(0) ""
+      ["unsignedInt"]=>
+      string(0) ""
+      ["unsignedShort"]=>
+      string(0) ""
+      ["unsignedByte"]=>
+      string(0) ""
+      ["positiveInteger"]=>
+      string(0) ""
+    }
+    ["http://www.w3.org/2000/10/XMLSchema"]=>
+    array(11) {
+      ["i4"]=>
+      string(0) ""
+      ["int"]=>
+      string(7) "integer"
+      ["boolean"]=>
+      string(7) "boolean"
+      ["string"]=>
+      string(6) "string"
+      ["double"]=>
+      string(6) "double"
+      ["float"]=>
+      string(6) "double"
+      ["dateTime"]=>
+      string(6) "string"
+      ["timeInstant"]=>
+      string(6) "string"
+      ["base64Binary"]=>
+      string(6) "string"
+      ["base64"]=>
+      string(6) "string"
+      ["ur-type"]=>
+      string(5) "array"
+    }
+    ["http://www.w3.org/1999/XMLSchema"]=>
+    array(11) {
+      ["i4"]=>
+      string(0) ""
+      ["int"]=>
+      string(7) "integer"
+      ["boolean"]=>
+      string(7) "boolean"
+      ["string"]=>
+      string(6) "string"
+      ["double"]=>
+      string(6) "double"
+      ["float"]=>
+      string(6) "double"
+      ["dateTime"]=>
+      string(6) "string"
+      ["timeInstant"]=>
+      string(6) "string"
+      ["base64Binary"]=>
+      string(6) "string"
+      ["base64"]=>
+      string(6) "string"
+      ["ur-type"]=>
+      string(5) "array"
+    }
+    ["http://soapinterop.org/xsd"]=>
+    array(1) {
+      ["SOAPStruct"]=>
+      string(6) "struct"
+    }
+    ["http://schemas.xmlsoap.org/soap/encoding/"]=>
+    array(3) {
+      ["base64"]=>
+      string(6) "string"
+      ["array"]=>
+      string(5) "array"
+      ["Array"]=>
+      string(5) "array"
+    }
+    ["http://xml.apache.org/xml-soap"]=>
+    array(1) {
+      [0]=>
+      string(3) "Map"
+    }
+  }
+  ["xmlEntities"]=>
+  array(5) {
+    ["quot"]=>
+    string(1) """
+    ["amp"]=>
+    string(1) "&"
+    ["lt"]=>
+    string(1) "<"
+    ["gt"]=>
+    string(1) ">"
+    ["apos"]=>
+    string(1) "'"
+  }
+  ["serviceName"]=>
+  string(4) "hey2"
+  ["schemaTargetNamespace"]=>
+  NULL
+}
+
+-->
