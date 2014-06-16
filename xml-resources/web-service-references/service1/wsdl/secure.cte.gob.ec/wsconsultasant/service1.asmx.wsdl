@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="obtenerDeudaCitaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="identificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="palabraClave" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="obtenerDeudaCitacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="obtenerDeudaCitacionesResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerDeudaCitacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:obtenerDeudaCitaciones" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDeudaCitacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:obtenerDeudaCitacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDeudaCitacionesHttpGetIn">
+    <wsdl:part name="identificacion" type="s:string" />
+    <wsdl:part name="palabraClave" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDeudaCitacionesHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDeudaCitacionesHttpPostIn">
+    <wsdl:part name="identificacion" type="s:string" />
+    <wsdl:part name="palabraClave" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="obtenerDeudaCitacionesHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <wsdl:input message="tns:obtenerDeudaCitacionesSoapIn" />
+      <wsdl:output message="tns:obtenerDeudaCitacionesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpGet">
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <wsdl:input message="tns:obtenerDeudaCitacionesHttpGetIn" />
+      <wsdl:output message="tns:obtenerDeudaCitacionesHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpPost">
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <wsdl:input message="tns:obtenerDeudaCitacionesHttpPostIn" />
+      <wsdl:output message="tns:obtenerDeudaCitacionesHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <soap:operation soapAction="http://tempuri.org/obtenerDeudaCitaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <soap12:operation soapAction="http://tempuri.org/obtenerDeudaCitaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpGet" type="tns:Service1HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <http:operation location="/obtenerDeudaCitaciones" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpPost" type="tns:Service1HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="obtenerDeudaCitaciones">
+      <http:operation location="/obtenerDeudaCitaciones" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://secure.cte.gob.ec/wsconsultasant/service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://secure.cte.gob.ec/wsconsultasant/service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpGet" binding="tns:Service1HttpGet">
+      <http:address location="http://secure.cte.gob.ec/wsconsultasant/service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpPost" binding="tns:Service1HttpPost">
+      <http:address location="http://secure.cte.gob.ec/wsconsultasant/service1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://secure.cte.gob.ec/wsconsultasant/service1.asmx?WSDL" uri="xml-resources/web-service-references/service1/wsdl/secure.cte.gob.ec/wsconsultasant/service1.asmx.wsdl"/>
+    <system systemId="http://www.webservicex.net/geoipservice.asmx?WSDL" uri="xml-resources/web-service-references/geoipservice/wsdl/www.webservicex.net/geoipservice.asmx.wsdl"/>
+    <system systemId="http://www.ruthmariaestetica.com/ws_cliente/server.php?wsdl" uri="xml-resources/web-service-references/server/wsdl/www.ruthmariaestetica.com/ws_cliente/server.php.wsdl"/>
+    <system systemId="http://10.10.200.195:8085/goliak_web/ws_cliente/server.php?wsdl" uri="xml-resources/web-service-references/server_1/wsdl/10.10.200.195_8085/goliak_web/ws_cliente/server.php.wsdl"/>
+</catalog>

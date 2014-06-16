@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-service1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service1"/>
+        <property name="wsdl-service1" location="xml-resources/web-service-references/service1/wsdl/secure.cte.gob.ec/wsconsultasant/service1.asmx.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service1" destdir="${build.generated.dir}/jax-wsCache/service1" wsdl="${wsdl-service1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" wsdlLocation="http://secure.cte.gob.ec/wsconsultasant/service1.asmx?WSDL" xnocompile="true" xendorsed="true" package="pos">
+            <depends file="${wsdl-service1}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-service1" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service1"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/pos"/>
+    </target>
+    <target name="wsimport-client-geoipservice" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/geoipservice"/>
+        <property name="wsdl-geoipservice" location="xml-resources/web-service-references/geoipservice/wsdl/www.webservicex.net/geoipservice.asmx.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/geoipservice" destdir="${build.generated.dir}/jax-wsCache/geoipservice" wsdl="${wsdl-geoipservice}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" wsdlLocation="http://www.webservicex.net/geoipservice.asmx?WSDL" xnocompile="true" xendorsed="true" package="pruebas">
+            <depends file="${wsdl-geoipservice}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/geoipservice"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/geoipservice">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-geoipservice" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/geoipservice"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/pruebas"/>
+    </target>
+    <target name="wsimport-client-server" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/server"/>
+        <property name="wsdl-server" location="xml-resources/web-service-references/server/wsdl/www.ruthmariaestetica.com/ws_cliente/server.php.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/server" destdir="${build.generated.dir}/jax-wsCache/server" wsdl="${wsdl-server}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" wsdlLocation="http://www.ruthmariaestetica.com/ws_cliente/server.php?wsdl" xnocompile="true" xendorsed="true" package="ws_local">
+            <depends file="${wsdl-server}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/server"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/server">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-server" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/server"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws_local"/>
+    </target>
+    <target name="wsimport-client-server_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/server_1"/>
+        <property name="wsdl-server_1" location="xml-resources/web-service-references/server_1/wsdl/10.10.200.195_8085/goliak_web/ws_cliente/server.php.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/server_1" destdir="${build.generated.dir}/jax-wsCache/server_1" wsdl="${wsdl-server_1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" wsdlLocation="http://10.10.200.195:8085/goliak_web/ws_cliente/server.php?wsdl" xnocompile="true" xendorsed="true" package="producto">
+            <depends file="${wsdl-server_1}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/server_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/server_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-server_1" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/server_1"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/producto"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-service1, wsimport-client-geoipservice, wsimport-client-server, wsimport-client-server_1"/>
+</project>
