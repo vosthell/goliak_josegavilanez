@@ -50,7 +50,7 @@ public class frmClienteAdd extends javax.swing.JInternalFrame {
             clsComboBox oItem = new clsComboBox(dataProvincia.get(i).getCodigo(), dataProvincia.get(i).getDescripcion());
             cmbProvincia.addItem(oItem);            
         }
-        cmbProvincia.setSelectedIndex(12);
+        cmbProvincia.setSelectedIndex(9);
         
         //CARGAR CIUDADES
         cargar_ciudades();

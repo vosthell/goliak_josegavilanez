@@ -199,7 +199,7 @@ public class clsProducto {
             String cantidad, char controlMinimo, String cantidadMinima, 
             String controlExistencia, char controlPerecible, String fechaCaducidad, 
             String descuento, String idGrupo, Double primerPrecio,
-            String nombreArchivoRandom)
+            String nombreArchivoRandom, String bodega)
     {
         boolean exito;
         try
@@ -209,12 +209,12 @@ public class clsProducto {
                     + "(cod_item, des_item, costo, cant_stock, fecha_caducidad,"
                     + " control_minimo, cantidad_minima, "
                     + " control_existencia, control_perecible, descuento, id_grupo_producto, "
-                    + " precio1, imagen)"
+                    + " precio1, imagen, cant_bodega)"
                     + " VALUES('" + codigo + "', '" + descripcion + "', " + costo 
                     + " , " + cantidad + ", '" + fechaCaducidad + "',"
                     + " '" + controlMinimo + "', " + cantidadMinima+","
                     + " '"+ controlExistencia+"', '" + controlPerecible + "', " + descuento + ", " + idGrupo + ", "
-                    + primerPrecio+ ", '" + nombreArchivoRandom + "')";           
+                    + primerPrecio+ ", '" + nombreArchivoRandom + "', " + bodega + ")";           
             System.out.println("SQL enviado:" + sql);
             bd.sentencia.executeUpdate(sql);
             exito = true; 
