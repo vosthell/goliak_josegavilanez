@@ -1388,8 +1388,9 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                 precio,
                                 costo,
                                 "EGRESO",
-                                ultmFactura);
-                        objProducto.disminuirStock(idProducto, cantidad);
+                                ultmFactura,
+                                1);
+                        objProducto.disminuirStockAlmacen(idProducto, cantidad);
                     }  
                     clsComboBox objFactureroSelect = (clsComboBox)cmbFacturero.getSelectedItem();
                     objFacturero.actualizarFacturero(Integer.parseInt(objFactureroSelect.getCodigo()));

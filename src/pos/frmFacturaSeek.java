@@ -658,7 +658,7 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         for(int i=0; i<dataDetalle.size(); i++)
         {     
             String precio = ""+dataDetalle.get(i).getPrecio();
-            exito = objProducto.aumentarStock(dataDetalle.get(i).getIdProducto(), dataDetalle.get(i).getCantidad());        
+            exito = objProducto.aumentarStockAlmacen(dataDetalle.get(i).getIdProducto(), dataDetalle.get(i).getCantidad());        
             //KARDEX
             objKardex.insertarKardex(dataDetalle.get(i).getIdProducto(), 
                     "ELIMINACION DE  FACTURA: " + idCabeMovi, 
@@ -668,7 +668,8 @@ private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                     precio,
                     dataDetalle.get(i).getCosto(),
                     "INGRESO",
-                    idCabeMovi);
+                    idCabeMovi,
+                    1);
                   
         }
         JOptionPane.showMessageDialog(this, "Factura eliminada con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);

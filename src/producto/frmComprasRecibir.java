@@ -622,7 +622,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                 "" + precio,
                                 precio,
                                 "INGRESO",
-                                idCabeceraCompra);
+                                idCabeceraCompra,
+                                1);
                     }
                     else
                     {
@@ -635,9 +636,10 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                 "" + precio,
                                 precio,
                                 "INGRESO",
-                                idCabeceraCompra);
+                                idCabeceraCompra,
+                                1);
                     } 
-                    objProducto.aumentarStock(idProducto, cantidad);
+                    objProducto.aumentarStockAlmacen(idProducto, cantidad);
                     //COMPROBAR SI SE  LE SUMA IVA
                     boolean verificarIVA = objImpuestos.comprobarImpuesto(idProducto, "1");
                     if(verificarIVA)

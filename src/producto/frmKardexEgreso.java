@@ -11,6 +11,7 @@
 package producto;
 
 import clases.clsAuditoria;
+import clases.clsComboBox;
 import clases.clsKardex;
 import clases.clsProducto;
 import clases.clsUtils;
@@ -37,6 +38,11 @@ public class frmKardexEgreso extends javax.swing.JInternalFrame {
         //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaActual = new Date();
         txtFecha.setDate(fechaActual);
+        
+        clsComboBox oItem = new clsComboBox("1", "ALMACEN");
+        cmbLocalidad.addItem(oItem); 
+        oItem = new clsComboBox("2", "BODEGA");
+        cmbLocalidad.addItem(oItem); 
     }
 
     /** This method is called from within the constructor to
@@ -60,6 +66,7 @@ public class frmKardexEgreso extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtReferencia = new javax.swing.JTextArea();
+        cmbLocalidad = new javax.swing.JComboBox();
         btnAceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -110,6 +117,8 @@ public class frmKardexEgreso extends javax.swing.JInternalFrame {
         txtReferencia.setName("txtReferencia"); // NOI18N
         jScrollPane1.setViewportView(txtReferencia);
 
+        cmbLocalidad.setName("cmbLocalidad"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -129,11 +138,13 @@ public class frmKardexEgreso extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(cmbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,13 +164,12 @@ public class frmKardexEgreso extends javax.swing.JInternalFrame {
                         .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
                         .addComponent(jLabel3))
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(jLabel5))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -205,7 +215,7 @@ public class frmKardexEgreso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btnAceptar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,14 +234,20 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
         String descripcion = txtReferencia.getText();
         String unidades = txtUnidades.getText();
+        
+        clsComboBox objCuotaSelect = (clsComboBox)cmbLocalidad.getSelectedItem();
+        String localidad = objCuotaSelect.getCodigo();
 
         boolean exito = objKardex.insertarRegistro(fecha, descripcion, Double.parseDouble("-"+unidades), 
                 codigoProducto, 
-                "EGRESO", 0);
+                "EGRESO", 0, localidad);
 
         if (exito)
         {
-            exito = objProducto.disminuirStock(codigoProducto, unidades);
+            if(localidad.equals("1"))
+                exito = objProducto.disminuirStockAlmacen(codigoProducto, unidades);
+            if(localidad.equals("2"))
+                exito = objProducto.disminuirStockBodega(codigoProducto, unidades);
             JOptionPane.showMessageDialog(this, "Datos almacenados con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);
             objAuditoria.insertarAuditoria("frmKardexEgreso", "EGRESO DE " + txtUnidades.getText().toString() + " UNIDADES DE LA MERCADERIA: " + txtDescripcion.getText().toString(), "4");       
             frmKardex.lblTexto.requestFocus();
@@ -247,6 +263,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JComboBox cmbLocalidad;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

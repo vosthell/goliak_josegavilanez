@@ -884,8 +884,9 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                                 precio,
                                                 costo,
                                                 "INGRESO",
-                                                ultmFactura);
-                    objProducto.aumentarStock(idProducto, Double.parseDouble(cantidad));
+                                                ultmFactura,
+                                                1);
+                    objProducto.aumentarStockAlmacen(idProducto, Double.parseDouble(cantidad));
                 }          
                
                 JOptionPane.showMessageDialog(this, "Devolución guardada con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);        

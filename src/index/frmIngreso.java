@@ -65,7 +65,7 @@ public class frmIngreso extends javax.swing.JFrame {
         //lblServer.setText("Servidor: " + objConexion.obtenerServer());   
         lblServer.setText("Servidor: " + objEmpresa.consultaIPEmpresaDefault());   
         
-        
+        txtClave.requestFocus();
     }
 
     /** This method is called from within the constructor to

@@ -818,7 +818,8 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                                 precio,
                                                 costo,
                                                 "INV - INGRESO",
-                                                ultmInventario);
+                                                ultmInventario,
+                                                1);
                     }
                     else
                     {
@@ -828,9 +829,10 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                                 precio,
                                                 costo,
                                                 "INV - EGRESO",
-                                                ultmInventario);
+                                                ultmInventario,
+                                                1);
                     }
-                    objProducto.aumentarStock(idProducto, cantidad);
+                    objProducto.aumentarStockAlmacen(idProducto, cantidad);
                 }          
                
                 JOptionPane.showMessageDialog(this, "Inventario guardado con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);        

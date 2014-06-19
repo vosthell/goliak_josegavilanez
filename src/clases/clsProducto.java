@@ -32,6 +32,7 @@ public class clsProducto {
     private Double precio1; 
     private boolean inv_1; 
     private String imagen;
+    private Double cant_bodega;
     
     public String getIdItems() {
         return id_items;
@@ -63,6 +64,14 @@ public class clsProducto {
     
     public void setCantStock(Double cant_stock) {
         this.cant_stock = cant_stock;
+    }
+    
+    public Double getCantBodega() {
+        return cant_bodega;
+    }
+    
+    public void setCantBodega(Double cant_bodega) {
+        this.cant_bodega = cant_bodega;
     }
     
     public Double getCosto() {
@@ -558,7 +567,7 @@ public class clsProducto {
             sql = "SELECT id_items, cod_item, des_item, cant_stock, costo, "
                         + " control_perecible, fecha_caducidad, control_existencia, "
                         + " control_minimo, cantidad_minima, descuento, id_grupo_producto, "
-                        + " precio1, imagen"
+                        + " precio1, imagen, cant_bodega"
                     + " FROM ck_items"
                     + " WHERE cod_item = '" + codigo + "'"
                     + " AND estado='A'";
@@ -580,6 +589,7 @@ public class clsProducto {
                 oListaTemporal.setIdGrupoProducto(bd.resultado.getInt("id_grupo_producto"));
                 oListaTemporal.setPrecio1(bd.resultado.getDouble("precio1"));
                 oListaTemporal.setImagen(bd.resultado.getString("imagen"));
+                oListaTemporal.setCantBodega(bd.resultado.getDouble("cant_bodega"));
                 data.add(oListaTemporal);
             }
             //return data;            
@@ -700,7 +710,7 @@ public class clsProducto {
         return exito;
     } 
     
-    public boolean disminuirStock(int p_id, String cantidad)
+    public boolean disminuirStockAlmacen(int p_id, String cantidad)
     {
         boolean exito;
         try
@@ -722,7 +732,29 @@ public class clsProducto {
         return exito;
     }   
     
-    public boolean aumentarStock(int p_id, double cantidad)
+    public boolean disminuirStockBodega(int p_id, String cantidad)
+    {
+        boolean exito;
+        try
+        {           
+            bd.conectarBaseDeDatos();
+            sql = "UPDATE ck_items"
+                    + " SET cant_bodega = cant_bodega - " + cantidad                                     
+                    + " WHERE id_items = " + p_id;            
+            // System.out.println("SQL enviado:" + sql);
+            bd.sentencia.executeUpdate(sql);
+            exito = true;
+        }
+        catch(SQLException e) //Captura posible error de SQL
+        {
+            System.out.println("Error SQL:" + e);
+            exito = false;
+        } 
+        bd.desconectarBaseDeDatos();
+        return exito;
+    }   
+    
+    public boolean aumentarStockAlmacen(int p_id, double cantidad)
     {
         boolean exito;
         try
@@ -730,6 +762,28 @@ public class clsProducto {
             bd.conectarBaseDeDatos();
             sql = "UPDATE ck_items"
                     + " SET cant_stock = cant_stock + (" + cantidad + ")"                                     
+                    + " WHERE id_items = " + p_id;            
+            // System.out.println("SQL enviado:" + sql);
+            bd.sentencia.executeUpdate(sql);
+            exito = true;
+        }
+        catch(SQLException e) //Captura posible error de SQL
+        {
+            System.out.println("Error SQL:" + e);
+            exito = false;
+        } 
+        bd.desconectarBaseDeDatos();
+        return exito;
+    }   
+    
+    public boolean aumentarStockBodega(int p_id, double cantidad)
+    {
+        boolean exito;
+        try
+        {           
+            bd.conectarBaseDeDatos();
+            sql = "UPDATE ck_items"
+                    + " SET cant_bodega = cant_bodega + (" + cantidad + ")"                                     
                     + " WHERE id_items = " + p_id;            
             // System.out.println("SQL enviado:" + sql);
             bd.sentencia.executeUpdate(sql);

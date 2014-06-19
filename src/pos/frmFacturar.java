@@ -1285,8 +1285,9 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                                 precio,
                                                 costo,
                                                 "EGRESO",
-                                                ultmFactura);
-                    objProducto.disminuirStock(idProducto, cantidad);
+                                                ultmFactura,
+                                                1);
+                    objProducto.disminuirStockAlmacen(idProducto, cantidad);
                 }          
                 //SI ES MANUAL MODIFICO EL PARAMETRO PRIMERA VEZ A "N"
                 factManual = objCaja.comprobarFacturacionManual(idCajaAbierta); 
@@ -1707,7 +1708,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             //pw.println("");
             //35 lineas
             /********************CABECERA**********/
-            pw.println("");
+            //pw.println("");
             if(dataCabecera.get(0).getCodigo()==2775)
             {
                 pw.println("CEDULA: "+dataCabecera.get(0).getCedulaSinRegistrar());
@@ -1746,14 +1747,14 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 boolean verificarIVA = objImpuestos.comprobarImpuesto(dataDetalle.get(i).getIdProducto(), "1");                    
                 
                 String detalle = "";
-                if(dataDetalle.get(i).getDescripcionProducto().length()>25)
-                    detalle = dataDetalle.get(i).getDescripcionProducto().substring(0, 25);
+                if(dataDetalle.get(i).getDescripcionProducto().length()>24)
+                    detalle = dataDetalle.get(i).getDescripcionProducto().substring(0, 24);
                 else
                 {
                     detalle = dataDetalle.get(i).getDescripcionProducto();
                     do{
                         detalle = detalle + " ";
-                    }while(detalle.length()<25);
+                    }while(detalle.length()<24);
                 }
                 
                 if(verificarIVA)
@@ -1786,19 +1787,19 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             System.out.println("iva: "+tarifaIva +" cero: "+tarifaZero+ "subtotal: " +subtotal);
             descuento = dataCabecera.get(0).getDescuento();            
             pw.println("SUBTOTAL:                       $" + objUtils.rellenar(""+df1.format(subtotal)));
-            pw.println("VENTA TARIFA 12%:               $" + objUtils.rellenar(""+df1.format(tarifaIva)));
-            pw.println("VENTA TARIFA 0%:                $" + objUtils.rellenar(""+df1.format(tarifaZero)));
+            //pw.println("VENTA TARIFA 12%:               $" + objUtils.rellenar(""+df1.format(tarifaIva)));
+            //pw.println("VENTA TARIFA 0%:                $" + objUtils.rellenar(""+df1.format(tarifaZero)));
             pw.println("DESCUENTO:                      $" + objUtils.rellenar(""+df1.format(descuento)));
             pw.println("I.V.A.:                         $" + objUtils.rellenar(""+df1.format(dataCabecera.get(0).getIVA())));
             totalEfectivo = df1.format(objUtils.redondear(dataCabecera.get(0).getEfectivo()));
             //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(dataCabecera.get(0).getEfectivo()))); 
             pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(totalFactura))); 
-            pw.println("");   
+            //pw.println("");   
             if(main.nameUser.length()>30)
                 pw.println("CAJERO: " + main.nameUser.substring(0, 30));
             else
                 pw.println("CAJERO: " + main.nameUser);
-            pw.println("");   
+            //pw.println("");   
             pw.println(objParametros.consultaValor("print_factura_linea_final"));
             /**************************************/       
             

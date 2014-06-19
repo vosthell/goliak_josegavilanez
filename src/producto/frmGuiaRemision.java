@@ -1029,8 +1029,9 @@ private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                                 precio,
                                 costo,
                                 "EGRESO",
-                                ultmFactura);
-                        objProducto.disminuirStock(idProducto, cantidad);
+                                ultmFactura,
+                                1);
+                        objProducto.disminuirStockAlmacen(idProducto, cantidad);
                     }  
                     
                     JOptionPane.showMessageDialog(this, "Nota de entrega guardada con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);        

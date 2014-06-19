@@ -28,6 +28,7 @@ public class clsKardex {
     private String tipo_mov;
     private String name;
     private int id_documento;
+    private int id_localidad;
     
     public int getIdKardex() {
         return id_kardex;
@@ -124,12 +125,21 @@ public class clsKardex {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public int getIdLocalidad() {
+        return id_localidad;
+    }
+    
+    public void setIdLocalidad(int id_localidad) {
+        this.id_localidad = id_localidad;
+    }
+    
    public ArrayList<clsKardex>  consultarMovimientos(String id_items){            
         ArrayList<clsKardex> data = new ArrayList<clsKardex>(); 
         try{
             bd.conectarBaseDeDatos();
             sql = "SELECT id_kardex,fecha, descripcion, unidades, a.estado estado, id_items,"
-                        + " id_empresa, nombre_empresa, valor, costo, tipo_mov, name, id_documento"
+                        + " id_empresa, nombre_empresa, valor, costo, tipo_mov, name, id_documento, id_localidad"
                     + " FROM ck_kardex AS a"
                     + " JOIN ck_usuario AS b ON a.id_usuario = b.id_usuario"
                     + " WHERE id_items =" + id_items
@@ -150,6 +160,7 @@ public class clsKardex {
                 oListaTemporal.setTipoMov(bd.resultado.getString("tipo_mov"));
                 oListaTemporal.setName(bd.resultado.getString("name"));
                 oListaTemporal.setIdDocumento(bd.resultado.getInt("id_documento"));
+                oListaTemporal.setIdLocalidad(bd.resultado.getInt("id_localidad"));
                 data.add(oListaTemporal);
             }
             //return data;            
@@ -164,7 +175,7 @@ public class clsKardex {
     }
     
     public boolean insertarRegistro(String fecha, String descripcion, Double unidades, 
-            int idItems, String tipo_mov, int id_documento)
+            int idItems, String tipo_mov, int id_documento, String localidad)
     {       
         boolean exito;
         try
@@ -172,9 +183,9 @@ public class clsKardex {
             bd.conectarBaseDeDatos();          
             sql = "INSERT INTO ck_kardex"
                     + " (fecha, descripcion, unidades, id_items, "
-                    + " id_empresa, nombre_empresa, valor, tipo_mov, id_documento, id_usuario)"
+                    + " id_empresa, nombre_empresa, valor, tipo_mov, id_documento, id_usuario, id_localidad)"
                     + " VALUES('" + fecha + "', '" + descripcion + "', " + unidades + ", " + idItems 
-                    + " , '-', '-', 0.00, '" + tipo_mov + "', " + id_documento + ", " + main.idUser + ")";           
+                    + " , '-', '-', 0.00, '" + tipo_mov + "', " + id_documento + ", " + main.idUser + ", " + localidad + ")";           
             System.out.println("SQL enviado:" + sql);
             bd.sentencia.executeUpdate(sql);
             exito = true; 
@@ -189,7 +200,8 @@ public class clsKardex {
     }    
     
     public boolean insertarKardex(int idItem, String descripcion, String unidades, 
-            String id_empresa, String nombre_empresa, String valor, Double costo, String tipo_mov, Integer id_documento)
+            String id_empresa, String nombre_empresa, String valor, 
+            Double costo, String tipo_mov, Integer id_documento, Integer localidad)
     {       
         boolean exito;
         try
@@ -197,10 +209,12 @@ public class clsKardex {
             bd.conectarBaseDeDatos();          
             sql = "INSERT INTO ck_kardex"
                     + " (fecha, descripcion, unidades, id_items,"
-                    + " id_empresa, nombre_empresa, valor, costo, tipo_mov, id_documento, id_usuario)"
+                    + " id_empresa, nombre_empresa, valor, costo, tipo_mov, "
+                    + " id_documento, id_usuario, id_localidad)"
                     + " VALUES(now(), '"+descripcion+"', "+unidades+", "+idItem+","
                     + " '" + id_empresa+ "', '" + nombre_empresa + "', " + valor + ", "
-                    + costo + ", '" + tipo_mov+ "', " + id_documento + ", "+ main.idUser+")";           
+                    + costo + ", '" + tipo_mov+ "', " + id_documento + ", "+ main.idUser+", "
+                    + localidad + ")";           
             System.out.println("SQL enviado:" + sql);
             bd.sentencia.executeUpdate(sql);
             exito = true; 

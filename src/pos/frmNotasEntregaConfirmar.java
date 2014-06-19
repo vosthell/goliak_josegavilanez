@@ -798,8 +798,9 @@ private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                                 precio,
                                 costo,
                                 "EGRESO",
-                                idCabecera);
-            objProducto.disminuirStock(idProducto, cantidad);
+                                idCabecera,
+                                1);
+            objProducto.disminuirStockAlmacen(idProducto, cantidad);
        }    
        
        objCabecera.confirmarNotaEntrega(idCabecera);       

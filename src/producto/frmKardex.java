@@ -47,6 +47,7 @@ import stinventario.frmPrincipal;
  */
 public class frmKardex extends javax.swing.JInternalFrame {
     MiModelo dtmData = new MiModelo();
+    MiModelo dtmDataBodega = new MiModelo();
     clsKardex objKardex = new clsKardex();
     clsUtils objUtils = new clsUtils();
     clsProducto objProducto = new clsProducto();
@@ -63,27 +64,28 @@ public class frmKardex extends javax.swing.JInternalFrame {
     public frmKardex() {
         initComponents();
         
-        dtmData.addColumn("Nº");
-        dtmData.addColumn("Fecha");
-        dtmData.addColumn("Concepto");
-        dtmData.addColumn("Proveedor/Cliente");
-        dtmData.addColumn("Valor");
-        dtmData.addColumn("Unidades");
-        dtmData.addColumn("Costo");
-        dtmData.addColumn("Saldo");
-        dtmData.addColumn("tipo_mov");
-        dtmData.addColumn("Usuario");
-        dtmData.addColumn("id_documento");
+        dtmData.addColumn("Nº");                dtmDataBodega.addColumn("Nº");
+        dtmData.addColumn("Fecha");             dtmDataBodega.addColumn("Fecha");
+        dtmData.addColumn("Concepto");          dtmDataBodega.addColumn("Concepto");
+        dtmData.addColumn("Proveedor/Cliente"); dtmDataBodega.addColumn("Proveedor/Cliente");
+        dtmData.addColumn("Valor");             dtmDataBodega.addColumn("Valor");    
+        dtmData.addColumn("Unidades");          dtmDataBodega.addColumn("Unidades");
+        dtmData.addColumn("Costo");             dtmDataBodega.addColumn("Costo");
+        dtmData.addColumn("Saldo");             dtmDataBodega.addColumn("Saldo");
+        dtmData.addColumn("tipo_mov");          dtmDataBodega.addColumn("tipo_mov");
+        dtmData.addColumn("Usuario");           dtmDataBodega.addColumn("Usuario");
+        dtmData.addColumn("id_documento");      dtmDataBodega.addColumn("id_documento");
         //OCULTAR
         objUtils.setOcultarColumnasJTable(this.tblData, new int[]{8});  
+        objUtils.setOcultarColumnasJTable(this.tblDataBodega, new int[]{8});  
          
         //ALINEAR COLUMNA
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        tblData.getColumnModel().getColumn(4).setCellRenderer(tcr); 
-        tblData.getColumnModel().getColumn(5).setCellRenderer(tcr); 
-        tblData.getColumnModel().getColumn(6).setCellRenderer(tcr); 
-        tblData.getColumnModel().getColumn(7).setCellRenderer(tcr); 
+        tblData.getColumnModel().getColumn(4).setCellRenderer(tcr); tblDataBodega.getColumnModel().getColumn(4).setCellRenderer(tcr); 
+        tblData.getColumnModel().getColumn(5).setCellRenderer(tcr); tblDataBodega.getColumnModel().getColumn(5).setCellRenderer(tcr); 
+        tblData.getColumnModel().getColumn(6).setCellRenderer(tcr); tblDataBodega.getColumnModel().getColumn(6).setCellRenderer(tcr); 
+        tblData.getColumnModel().getColumn(7).setCellRenderer(tcr); tblDataBodega.getColumnModel().getColumn(7).setCellRenderer(tcr); 
         
         //CARGAR AUTOCOMPLETAR
         List<String> dataCodigo = objProducto.consultarCodigos();         
@@ -92,6 +94,7 @@ public class frmKardex extends javax.swing.JInternalFrame {
         intellihints.setCaseSensitive(false);
         
         tblData.setDefaultRenderer (Object.class, new clsColorKardex());
+        tblDataBodega.setDefaultRenderer (Object.class, new clsColorKardex());
     }
     
     public class MiModelo extends DefaultTableModel
@@ -133,10 +136,15 @@ public class frmKardex extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         btnImagen = new javax.swing.JButton();
         imagepanel1 = new org.jdesktop.swingx.JXImagePanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblData = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        txtBodega = new javax.swing.JTextField();
         btnRecibir = new javax.swing.JButton();
         btnRetirar = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblData = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDataBodega = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -234,41 +242,51 @@ public class frmKardex extends javax.swing.JInternalFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        txtBodega.setEditable(false);
+        txtBodega.setText(resourceMap.getString("txtBodega.text")); // NOI18N
+        txtBodega.setName("txtBodega"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBodega, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(29, 29, 29)
                         .addComponent(cmbPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(423, 423, 423)
-                            .addComponent(lblTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnBuscar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(423, 423, 423)
+                        .addComponent(lblTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(18, 18, 18)
                 .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77)
@@ -299,22 +317,13 @@ public class frmKardex extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(cmbPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtBodega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTexto)))
                 .addContainerGap())
         );
-
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        tblData.setModel(dtmData);
-        tblData.setName("tblData"); // NOI18N
-        tblData.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDataMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblData);
 
         btnRecibir.setIcon(resourceMap.getIcon("btnRecibir.icon")); // NOI18N
         btnRecibir.setText(resourceMap.getString("btnRecibir.text")); // NOI18N
@@ -336,6 +345,34 @@ public class frmKardex extends javax.swing.JInternalFrame {
             }
         });
 
+        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        tblData.setModel(dtmData);
+        tblData.setName("tblData"); // NOI18N
+        tblData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDataMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblData);
+
+        jTabbedPane1.addTab(resourceMap.getString("jScrollPane1.TabConstraints.tabTitle"), jScrollPane1); // NOI18N
+
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        tblDataBodega.setModel(dtmDataBodega);
+        tblDataBodega.setName("tblDataBodega"); // NOI18N
+        tblDataBodega.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDataBodegaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblDataBodega);
+
+        jTabbedPane1.addTab(resourceMap.getString("jScrollPane2.TabConstraints.tabTitle"), jScrollPane2); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -343,12 +380,13 @@ public class frmKardex extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnRecibir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRetirar)))
+                        .addComponent(btnRetirar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -357,7 +395,7 @@ public class frmKardex extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRecibir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,6 +429,7 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         {
             JOptionPane.showMessageDialog(this, "Revisar datos ", "Atención", JOptionPane.ERROR_MESSAGE);
             objUtils.vaciarTabla(dtmData);
+            objUtils.vaciarTabla(dtmDataBodega);
             txtCodigoProducto.requestFocus();
         }
         else
@@ -398,8 +437,10 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             codigoProducto = Integer.parseInt(dataProducto.get(0).getIdItems());
             txtDescripcion.setText(dataProducto.get(0).getDesItem());
             txtStock.setText(""+dataProducto.get(0).getCantStock());
+            txtBodega.setText(""+dataProducto.get(0).getCantBodega());
             ArrayList <clsKardex> dataKardex = objKardex.consultarMovimientos("" + codigoProducto);
             objUtils.vaciarTabla(dtmData);
+            objUtils.vaciarTabla(dtmDataBodega);
             
             String nombreRandomico = "";
              try{
@@ -422,6 +463,7 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
              
             for(int i=0; i<dataKardex.size(); i++)
             {
+                int localidad = dataKardex.get(i).getIdLocalidad();
                 if (i==0)
                     saldo = dataKardex.get(i).getUnidades();
                 else
@@ -437,7 +479,11 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                         , dataKardex.get(i).getTipoMov()
                                         , dataKardex.get(i).getName()
                                         , dataKardex.get(i).getIdDocumento()};
-                dtmData.addRow(nuevaFila); 
+                if(localidad ==1)
+                    dtmData.addRow(nuevaFila); 
+                else if(localidad==2)
+                    dtmDataBodega.addRow(nuevaFila); 
+                    
             }
             //CARGAR PRECIOS DEL PRODUCTO
             cmbPrecio.removeAllItems();                
@@ -544,24 +590,10 @@ private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     txtStock.setText("");
     cmbPrecio.removeAllItems();
     objUtils.limpiarJTable(dtmData);
+    objUtils.limpiarJTable(dtmDataBodega);
     btnBuscarNombre.setEnabled(true);
     
 }//GEN-LAST:event_btnNuevoActionPerformed
-
-private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
-    //int fila = tblData.rowAtPoint(evt.getPoint());
-    //int columna = tblData.columnAtPoint(evt.getPoint());
-    
-    int i = tblData.getSelectedRow();
-    String descripcion = ""+tblData.getValueAt(i, 2);
-    int idCabecera = Integer.parseInt("" + tblData.getValueAt(i, 10));
-    System.out.println(descripcion.substring(0, 6) + "-" + idCabecera);
-    if(descripcion.substring(0, 6).equals("COMPRA"))
-    {   
-        frmComprasShow formulario = new frmComprasShow(idCabecera);
-        mostrarJInternalCentrado(formulario);  
-    }
-}//GEN-LAST:event_tblDataMouseClicked
 
 private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
     String imagen = objProducto.consultarImagenProducto(codigoProducto); 
@@ -594,6 +626,25 @@ private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 }//GEN-LAST:event_btnImagenActionPerformed
 
+    private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
+        //int fila = tblData.rowAtPoint(evt.getPoint());
+        //int columna = tblData.columnAtPoint(evt.getPoint());
+
+        int i = tblData.getSelectedRow();
+        String descripcion = ""+tblData.getValueAt(i, 2);
+        int idCabecera = Integer.parseInt("" + tblData.getValueAt(i, 10));
+        System.out.println(descripcion.substring(0, 6) + "-" + idCabecera);
+        if(descripcion.substring(0, 6).equals("COMPRA"))
+        {
+            frmComprasShow formulario = new frmComprasShow(idCabecera);
+            mostrarJInternalCentrado(formulario);
+        }
+    }//GEN-LAST:event_tblDataMouseClicked
+
+    private void tblDataBodegaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataBodegaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDataBodegaMouseClicked
+
      public static void mostrarJInternalCentrado(javax.swing.JInternalFrame formulario)
     {
         Dimension desktopSize = frmPrincipal.jDesktopPane1.getSize();
@@ -618,10 +669,15 @@ private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JLabel lblTexto;
     private javax.swing.JTable tblData;
+    private javax.swing.JTable tblDataBodega;
+    private javax.swing.JTextField txtBodega;
     public static javax.swing.JTextField txtCodigoProducto;
     public static javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtStock;

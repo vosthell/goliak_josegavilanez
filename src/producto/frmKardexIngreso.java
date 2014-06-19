@@ -11,6 +11,7 @@
 package producto;
 
 import clases.clsAuditoria;
+import clases.clsComboBox;
 import clases.clsKardex;
 import clases.clsProducto;
 import clases.clsUtils;
@@ -29,6 +30,7 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
     clsAuditoria objAuditoria = new clsAuditoria();
     clsUtils objUtils = new clsUtils();
     
+    
     //CODIGO DEL PRODUCTO SELECCIONADO 
     public static int codigoProducto;
     
@@ -38,6 +40,11 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
         //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaActual = new Date();
         txtFecha.setDate(fechaActual);
+        
+        clsComboBox oItem = new clsComboBox("1", "ALMACEN");
+        cmbLocalidad.addItem(oItem); 
+        oItem = new clsComboBox("2", "BODEGA");
+        cmbLocalidad.addItem(oItem); 
     }
 
     /** This method is called from within the constructor to
@@ -61,6 +68,7 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtReferencia = new javax.swing.JTextArea();
+        cmbLocalidad = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
 
@@ -111,6 +119,8 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
         txtReferencia.setName("txtReferencia"); // NOI18N
         jScrollPane1.setViewportView(txtReferencia);
 
+        cmbLocalidad.setName("cmbLocalidad"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,15 +134,20 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -152,7 +167,8 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
                         .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
                         .addComponent(jLabel3))
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,7 +218,7 @@ public class frmKardexIngreso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btnAceptar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,13 +237,19 @@ private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
         String descripcion = txtReferencia.getText();
         Double unidades = Double.parseDouble(txtUnidades.getText());
+        
+        clsComboBox objCuotaSelect = (clsComboBox)cmbLocalidad.getSelectedItem();
+        String localidad = objCuotaSelect.getCodigo();
 
         boolean exito = objKardex.insertarRegistro(fecha, descripcion, unidades, 
-                codigoProducto, "INGRESO", 0);
+                codigoProducto, "INGRESO", 0, localidad);
 
         if (exito)
         {
-            exito = objProducto.aumentarStock(codigoProducto, unidades);
+            if(localidad.equals("1"))
+                exito = objProducto.aumentarStockAlmacen(codigoProducto, unidades);
+            if(localidad.equals("2"))
+                exito = objProducto.aumentarStockBodega(codigoProducto, unidades);
             JOptionPane.showMessageDialog(this, "Datos almacenados con éxito", objUtils.tituloVentanaMensaje, JOptionPane.INFORMATION_MESSAGE);
             objAuditoria.insertarAuditoria("frmKardexIngreso", "INGRESO DE " + txtUnidades.getText().toString() + " UNIDADES DE LA MERCADERIA: " + txtDescripcion.getText().toString(), "4");
             frmKardex.lblTexto.requestFocus();
@@ -242,6 +264,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JComboBox cmbLocalidad;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
