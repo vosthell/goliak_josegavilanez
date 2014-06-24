@@ -884,29 +884,29 @@ private void txtUtilidadPorcentajeKeyReleased(java.awt.event.KeyEvent evt) {//GE
         txtUtilidadPorcentaje.setText("");
     }
     Double utilidad = Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtUtilidadPorcentaje.getText())/100;
-    txtUtilidad.setText("" + objUtils.redondear(utilidad));
+    txtUtilidad.setText("" + objUtils.redondearCuatroDec(utilidad));
     Double base = Double.parseDouble(txtCosto.getText())+utilidad;
-    txtBase.setText("" + objUtils.redondear(base));
+    txtBase.setText("" + objUtils.redondearCuatroDec(base));
     Double ivaBase = base*(this.porcentajeIva/100);
-    txtIvaActual.setText("" + objUtils.redondear(ivaBase));
+    txtIvaActual.setText("" + objUtils.redondearCuatroDec(ivaBase));
     Double precio =base+ivaBase;
-    txtPvp.setText("" + objUtils.redondear(precio));
+    txtPvp.setText("" + objUtils.redondearCuatroDec(precio));
 }//GEN-LAST:event_txtUtilidadPorcentajeKeyReleased
 
 private void txtPvpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPvpKeyReleased
    Double costo = Double.parseDouble(txtCosto.getText());
    Double ivaBase = Double.parseDouble(txtPvp.getText())/(1+(porcentajeIva/100));
-   txtBase.setText(""+objUtils.redondear(ivaBase));
+   txtBase.setText(""+objUtils.redondearCuatroDec(ivaBase));
    Double iva = Double.parseDouble(txtPvp.getText())-ivaBase;
-   txtIvaActual.setText(""+objUtils.redondear(iva));
+   txtIvaActual.setText(""+objUtils.redondearCuatroDec(iva));
    Double utilidad = ivaBase-costo;
-   txtUtilidad.setText(""+objUtils.redondear(utilidad));   
+   txtUtilidad.setText(""+objUtils.redondearCuatroDec(utilidad));   
    Double porcentajeUtilidad = 0.00;
     if (costo>0)
        porcentajeUtilidad = (utilidad*100)/costo;
    else
         porcentajeUtilidad = (utilidad*100);
-   txtUtilidadPorcentaje.setText(""+objUtils.redondear(porcentajeUtilidad));
+   txtUtilidadPorcentaje.setText(""+objUtils.redondearCuatroDec(porcentajeUtilidad));
 }//GEN-LAST:event_txtPvpKeyReleased
 
     private void chkPerecibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPerecibleActionPerformed
@@ -1256,9 +1256,9 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         ArrayList<clsPrecio> dataPrecio = objPrecio.consultarDataPrecios(codigoProducto);
         for(int i=0;i<dataPrecio.size();i=i+1)
         {
-            Double costo = objUtils.redondear(Double.parseDouble(""+dataPrecio.get(i).getCosto()));
-            Double utilidad = objUtils.redondear(Double.parseDouble(""+dataPrecio.get(i).getUtilidad()));
-            Double precio = objUtils.redondear(Double.parseDouble(""+dataPrecio.get(i).getPrecio()));
+            Double costo = objUtils.redondearCuatroDec(Double.parseDouble(""+dataPrecio.get(i).getCosto()));
+            Double utilidad = objUtils.redondearCuatroDec(Double.parseDouble(""+dataPrecio.get(i).getUtilidad()));
+            Double precio = objUtils.redondearCuatroDec(Double.parseDouble(""+dataPrecio.get(i).getPrecio()));
             Object[] nuevaFila = {"0", costo , utilidad, precio};               
             dtmData.addRow(nuevaFila); 
         }
@@ -1352,13 +1352,13 @@ private void txtBaseKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
         txtBase.setText("");
     }
     Double porcentaje = ((Double.parseDouble(txtBase.getText())-Double.parseDouble(txtCosto.getText()))/Double.parseDouble(txtCosto.getText()))*100;
-    txtUtilidadPorcentaje.setText(""+objUtils.redondear(porcentaje));
+    txtUtilidadPorcentaje.setText(""+objUtils.redondearCuatroDec(porcentaje));
     Double utilidad = Double.parseDouble(txtCosto.getText())*Double.parseDouble(txtUtilidadPorcentaje.getText())/100;
-    txtUtilidad.setText("" +objUtils.redondear(utilidad));
+    txtUtilidad.setText("" +objUtils.redondearCuatroDec(utilidad));
     Double ivaBase = Double.parseDouble(txtBase.getText())*(this.porcentajeIva/100);
-    txtIvaActual.setText(""+objUtils.redondear(ivaBase));
+    txtIvaActual.setText(""+objUtils.redondearCuatroDec(ivaBase));
     Double precio =Double.parseDouble(txtBase.getText())+ivaBase;
-    txtPvp.setText(""+objUtils.redondear(precio));
+    txtPvp.setText(""+objUtils.redondearCuatroDec(precio));
 }//GEN-LAST:event_txtBaseKeyReleased
 
 private void rbtnIVA0ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbtnIVA0ItemStateChanged
