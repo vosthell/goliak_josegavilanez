@@ -76,6 +76,7 @@ public class frmFacturar extends javax.swing.JDialog {
     Double baseTarifaCero = 0.00;
     public static int idUserCard = 0;
     public static int idUserCardCredito = 0;
+    public static double vuelto = 0.00;
     int filas = 0;
     //CODIGO DEL CLIENTE SELECCIONADO
     public static int codigoCliente;
@@ -1684,6 +1685,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     {  
         String totalEfectivo = "";
         DecimalFormat df1 = new DecimalFormat("###0.00"); 
+        DecimalFormat df_4decimales = new DecimalFormat("###0.0000"); 
         int idCabecera = objCabecera.obtenerUltimaFactura(idCajero);
         System.out.println("cabecera:" + idCabecera);
         ArrayList <clsCabecera> dataCabecera = objCabecera.consultarDataCabecera(idCabecera);
@@ -1747,29 +1749,38 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 boolean verificarIVA = objImpuestos.comprobarImpuesto(dataDetalle.get(i).getIdProducto(), "1");                    
                 
                 String detalle = "";
-                if(dataDetalle.get(i).getDescripcionProducto().length()>24)
-                    detalle = dataDetalle.get(i).getDescripcionProducto().substring(0, 24);
+                //if(dataDetalle.get(i).getDescripcionProducto().length()>24)
+                if(dataDetalle.get(i).getDescripcionProducto().length()>22)
+                {
+                    //detalle = dataDetalle.get(i).getDescripcionProducto().substring(0, 24);
+                    detalle = dataDetalle.get(i).getDescripcionProducto().substring(0, 22);
+                }
                 else
                 {
                     detalle = dataDetalle.get(i).getDescripcionProducto();
                     do{
                         detalle = detalle + " ";
-                    }while(detalle.length()<24);
+                    }while(detalle.length()<22);
+                    //}while(detalle.length()<24);
                 }
                 
                 if(verificarIVA)
-                {    
-                    
-                    pw.println(dataDetalle.get(i).getCantidad() + "   *" +
-                    detalle                     +  "$" +                          
-                    objUtils.rellenar("" + df1.format(dataDetalle.get(i).getCantidad()*(dataDetalle.get(i).getPrecio()/(1+(objImpuestos.obtenerPorcentajeIVA()/100))))));  
+                {                      
+                    //LE PONGO ASTERISCO PARA RESALTAR PRODUCTO CON IVA
+                    //pw.println(dataDetalle.get(i).getCantidad() + "   *" +
+                    pw.println(objUtils.rellenar_cantidad("" +dataDetalle.get(i).getCantidad()) 
+                            + "  " 
+                            + detalle                     
+                            + "$" 
+                            + objUtils.rellenar_4decimales("" + df_4decimales.format(dataDetalle.get(i).getCantidad()*(dataDetalle.get(i).getPrecio()/(1+(objImpuestos.obtenerPorcentajeIVA()/100))))));  
                 }
                 else
-                {
-                    //LE PONGO ASTERISCO PARA RESALTAR PRODUCTO SIN IVA
-                    pw.println(dataDetalle.get(i).getCantidad() + "    " +
-                    detalle                     +  "$" +                           
-                    objUtils.rellenar("" + df1.format(dataDetalle.get(i).getCantidad()*dataDetalle.get(i).getPrecio()))); 
+                {                    
+                    pw.println(objUtils.rellenar_cantidad("" +dataDetalle.get(i).getCantidad()) 
+                            + "  " 
+                            + detalle                     
+                            + "$" 
+                            + objUtils.rellenar_4decimales("" + df_4decimales.format(dataDetalle.get(i).getCantidad()*dataDetalle.get(i).getPrecio()))); 
                 }
             }
             /*COMPLETAR LOS ESPACIOS EN BLANCO
@@ -1778,8 +1789,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 pw.println("");
             }*/
             pw.println("");
-            pw.println("");
-            
+                       
             double tarifaIva = dataCabecera.get(0).getTarifaIVA();
             double tarifaZero = dataCabecera.get(0).getTarifaCero();
             double subtotal = tarifaIva + tarifaZero;
@@ -1794,6 +1804,8 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             totalEfectivo = df1.format(objUtils.redondear(dataCabecera.get(0).getEfectivo()));
             //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(dataCabecera.get(0).getEfectivo()))); 
             pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(totalFactura))); 
+            pw.println("------------------------------------");
+            pw.println("VUELTO:                         $" + objUtils.rellenar(""+vuelto)); 
             //pw.println("");   
             if(main.nameUser.length()>30)
                 pw.println("CAJERO: " + main.nameUser.substring(0, 30));

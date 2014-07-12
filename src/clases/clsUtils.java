@@ -168,7 +168,29 @@ public class clsUtils {
         }
     }   
      
-      //Me ayuda a alinear texto de valores a la derecha de la impresion en el POS
+    //Me ayuda a alinear texto de valores a la derecha de la impresion en el POS
+    public String rellenar_cantidad(String data)
+    {
+        //le mando: 4.0, debe devolver: 04.00, los ceros son espacios
+        //le mando: 4.00, debe devolver: 04.00
+        //le mando: 14.0, debe devolver: 14.00
+        //le mando: 14.00, debe devolver: 14.00
+        String data2 = "";
+        if(data.length()==3)
+        {   
+            data2 = data + "  ";
+        }
+        if(data.length()==4)
+        {     
+            data2 = data+" ";
+        }
+        if(data.length()==5)
+        {    
+            data2 = data;
+        }        
+        return data2;
+    }
+    
     public String rellenar(String data)
     {
         String data2 = "";
@@ -179,6 +201,20 @@ public class clsUtils {
         if(data.length()==6)
         {    data2 = " " + data;}
         if(data.length()>6)
+        {    data2 = data;}
+        return data2;
+    }
+    
+    public String rellenar_4decimales(String data)
+    {
+        String data2 = "";
+        if(data.length()<7)
+        {    data2 = "   " + data;}
+        if(data.length()==7)
+        {     data2 = "  " + data;}
+        if(data.length()==8)
+        {    data2 = " " + data;}
+        if(data.length()>8)
         {    data2 = data;}
         return data2;
     }

@@ -162,7 +162,10 @@ private void txtEfectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:ev
         {
             Double minuendo = Double.parseDouble(txtEfectivo.getText().toString());;
             Double sustraendo = Double.parseDouble(txtValor.getText().toString());
-            txtCambio.setText("" + objUtils.redondear(minuendo - sustraendo));
+            Double p_vuelto = objUtils.redondear(minuendo - sustraendo);
+            txtCambio.setText("" +p_vuelto);
+            //mandar el cambio a la facturaciuon
+            frmFacturar.vuelto = p_vuelto;
         }
 }//GEN-LAST:event_txtEfectivoKeyReleased
 
