@@ -18,6 +18,7 @@ import clases.clsUtils;
  */
 public class frmCambio extends javax.swing.JDialog {
     clsUtils objUtils = new clsUtils();
+    Double p_vuelto = 0.00; 
     /** Creates new form frmCambio2 */
     public frmCambio(java.awt.Frame parent, boolean modal, String totalEfectivo) {
         super(parent, modal);
@@ -155,22 +156,26 @@ public class frmCambio extends javax.swing.JDialog {
 
 private void txtEfectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEfectivoKeyReleased
     String x = txtEfectivo.getText();
-        if(!objUtils.isDouble(x)){
-            txtEfectivo.setText("");
-        }  
-        else
-        {
-            Double minuendo = Double.parseDouble(txtEfectivo.getText().toString());;
-            Double sustraendo = Double.parseDouble(txtValor.getText().toString());
-            Double p_vuelto = objUtils.redondear(minuendo - sustraendo);
-            txtCambio.setText("" +p_vuelto);
-            //mandar el cambio a la facturaciuon
-            frmFacturar.vuelto = p_vuelto;
-        }
+    if(!objUtils.isDouble(x))
+    {
+        txtEfectivo.setText("");
+    }  
+    else
+    {
+        Double minuendo = Double.parseDouble(txtEfectivo.getText().toString());;
+        Double sustraendo = Double.parseDouble(txtValor.getText().toString());
+        p_vuelto = objUtils.redondear(minuendo - sustraendo);
+        txtCambio.setText("" +p_vuelto);
+        frmFacturar.vuelto = p_vuelto;
+    }
 }//GEN-LAST:event_txtEfectivoKeyReleased
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    dispose();
+   
+    //mandar el cambio a la facturaciuon
+            //frmFacturar.vuelto = p_vuelto;
+    //frmFacturar.vuelto = Double.parseDouble(txtCambio.getText());
+             dispose();
 }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

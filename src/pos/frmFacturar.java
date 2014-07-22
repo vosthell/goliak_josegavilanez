@@ -1805,6 +1805,12 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(dataCabecera.get(0).getEfectivo()))); 
             pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(totalFactura))); 
             pw.println("------------------------------------");
+            
+            /******ABRIR VENTANA******/
+            frmCambio ventana = new frmCambio(null, true, totalEfectivo);
+            ventana.setLocationRelativeTo(null);
+            ventana.setVisible(true);
+            
             pw.println("VUELTO:                         $" + objUtils.rellenar(""+vuelto)); 
             //pw.println("");   
             if(main.nameUser.length()>30)
@@ -1826,9 +1832,9 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             pw.println("");  
             pw.println(""); 
             /******ABRIR VENTANA******/
-            frmCambio ventana = new frmCambio(null, true, totalEfectivo);
+            /*frmCambio ventana = new frmCambio(null, true, totalEfectivo);
             ventana.setLocationRelativeTo(null);
-            ventana.setVisible(true);
+            ventana.setVisible(true);*/
         
             /******ABRIR CAJON*****/
             byte[] bit = new byte[1];
@@ -1914,6 +1920,16 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                    for(int i=0;i<dataEmail2.size();i=i+1)
                    {
                        mail.send(dataEmail2.get(i).getEmail(), "CREDITO - FACTURA", texto);
+                   }
+               }
+               
+               //FACTURA MAYOR A 100               
+               if(totalFactura>100)
+               {   
+                   ArrayList<clsEmail> dataEmail3 = objEmail.consultarEmails("10");        
+                   for(int i=0;i<dataEmail3.size();i=i+1)
+                   {
+                       mail.send(dataEmail3.get(i).getEmail(), "VENTA MAYOR", texto);
                    }
                }
            }
