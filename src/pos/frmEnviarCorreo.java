@@ -7,6 +7,7 @@ package pos;
 import clases.clsCaja;
 import clases.clsEgreso;
 import clases.clsEmail;
+import clases.clsParametros;
 import clases.clsUtils;
 import clases.javaMail;
 import index.main;
@@ -22,6 +23,7 @@ public class frmEnviarCorreo extends javax.swing.JDialog {
     clsCaja objCaja = new clsCaja();
     clsEmail objEmail = new clsEmail();
     clsEgreso objEgreso = new clsEgreso();
+    clsParametros objParametros = new clsParametros();
     /**
      * Creates new form frmEnviarCorreo
      */
@@ -79,7 +81,9 @@ public class frmEnviarCorreo extends javax.swing.JDialog {
                     totalIngresos = totalIngresos + dataIngresos.get(i).getCantidadEgreso();                
                 }
                 texto = texto +"</TABLE>"
-                        + "TOTAL INGRESOS: " + objUtils.redondear(totalIngresos) + "</BR></BR>";               
+                        + "TOTAL INGRESOS: " + objUtils.redondear(totalIngresos) + "</BR></BR>";  
+                
+                
             }
             
             //EGRESOS
@@ -104,13 +108,15 @@ public class frmEnviarCorreo extends javax.swing.JDialog {
                     totalEgresos = totalEgresos + dataEgresos.get(i).getCantidadEgreso();                
                 }
                 texto = texto +"</TABLE>"
-                        + "TOTAL EGRESOS: " + objUtils.redondear(totalEgresos);               
+                        + "TOTAL EGRESOS: " + objUtils.redondear(totalEgresos); 
+                
             }
-            
+            texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
             ArrayList<clsEmail> dataEmail = objEmail.consultarEmails("2");        
             for(int i=0;i<dataEmail.size();i=i+1)
             {
                 mail.send(dataEmail.get(i).getEmail(),"CIERRE DE CAJA", texto);
+                System.out.println("SE ENVIO CORREO A: " + dataEmail.get(i).getEmail());
             }
             /*mail.send("vosthell@hotmail.com","CIERRE DE CAJA", texto);
             mail.send("c.kaiser.a@hotmail.com","CIERRE DE CAJA", texto);

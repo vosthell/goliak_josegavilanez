@@ -235,4 +235,71 @@ public class clsUtils {
         }//fin while
         return nombrearchivorandom;
     }
+    
+    //truncar decimales y redondea
+    public double truncar_decimal(int numeroDecimales,double decimal)
+    {
+        decimal = decimal*(java.lang.Math.pow(10, numeroDecimales));
+        decimal = java.lang.Math.round(decimal);
+        decimal = decimal/java.lang.Math.pow(10, numeroDecimales);
+
+        return decimal;  
+    }
+    
+    public double trunc( int ndec, double num) {
+        double fact = Math.pow(10, ndec); // 10 elevado a ndec
+        /* Se desplaza el punto decimal ndec posiciones,
+      se trunca el número y se vuelve a colocar
+      el punto decimal en su sitio. */
+        return (int)(num * fact) / fact;
+      }
+    
+    public double redondear_dec_multiplo_5(double numero_dec)
+    {        
+        double respuesta =0.00;
+        Locale.setDefault(Locale.ENGLISH);   
+        DecimalFormat formateador = new DecimalFormat("####.##");
+        
+        System.out.println("numeor_dec:" + numero_dec);
+        int numero = (int)numero_dec;   
+        System.out.println("numero:" + numero);//10
+        //double decimal = numero_dec - numero;  
+        double decimal = Double.parseDouble(formateador.format(numero_dec - numero));      //10.22 - 10 = 0.22
+        //decimal = trunc(2, decimal);                                  //0.22 = 0.22
+        System.out.println("decimal:" + decimal);
+        //truncamos deciaml para obtener la decima del decimal
+        //0.25   0.2    =    0.05
+        //double truncado = truncar_decimal(1, numero_dec);  
+        double truncado = trunc(1, numero_dec);  
+        System.out.println("truncado:" + truncado);
+        double decima = Double.parseDouble(formateador.format(truncado - numero));  ; 
+        System.out.println("decima:" + decima);
+       //decima = trunc(2, decima);  
+        System.out.println("decima:" + decima);//0.2 = 0.2
+        
+        //para tener la centecima. ejemplo:    0.56 -  0.5 = 0.06
+        double centesima = Double.parseDouble(formateador.format(decimal - decima));                              //0.02
+        //centesima = trunc(2, centesima); 
+        System.out.println("centesima:" + centesima);
+        
+        
+        if((centesima!=0.0)&&(centesima!=0.00)&&(centesima!=0.05)) 
+        { 
+            if(centesima>=0.06)           //  0.07
+            {    
+                decima = decima + 0.1; //   0.5   ====0.60
+                respuesta = numero + decima;
+            }
+            else if(centesima<=0.05)
+            {    
+                centesima = 0.05;
+                respuesta = numero + decima + centesima;
+            }            
+        }
+        else
+        {
+            respuesta = numero_dec;
+        }
+        return respuesta;      
+    }
 }

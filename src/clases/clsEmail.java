@@ -38,7 +38,7 @@ public class clsEmail {
                     + " WHERE a.estado = 'A'"
                     + " AND b.estado = 'A'"
                     + " AND b.id_email_app = " + id_aplicacion;
-            System.out.print(sql);
+            System.out.println(sql);
             bd.resultado = bd.sentencia.executeQuery(sql);
             
             while(bd.resultado.next()){

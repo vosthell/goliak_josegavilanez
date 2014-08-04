@@ -1803,7 +1803,9 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             pw.println("I.V.A.:                         $" + objUtils.rellenar(""+df1.format(dataCabecera.get(0).getIVA())));
             totalEfectivo = df1.format(objUtils.redondear(dataCabecera.get(0).getEfectivo()));
             //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(dataCabecera.get(0).getEfectivo()))); 
-            pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(totalFactura))); 
+            //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(totalFactura))); 
+            //REDONDEO A MULTIPLO DE % EL DECIMAL PARA NO DAR SUELTO
+            pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear_dec_multiplo_5(objUtils.redondear(totalFactura)))); 
             pw.println("------------------------------------");
             
             /******ABRIR VENTANA******/

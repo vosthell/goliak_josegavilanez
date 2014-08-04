@@ -85,6 +85,8 @@ public class clsConexion {
             Class.forName( CONTROLADOR );
             //System.getProperty( "user.dir" )+"/CarpetaBD/NombredelaBasedeDatos.mdb";
             conexion = DriverManager.getConnection("jdbc:postgresql://" + main.ipSeleccionada + "/" + objUtils.nameBD, user, pass);
+            //conexion = DriverManager.getConnection("jdbc:postgresql://127.0.0.1/goliak_jg", "postgres", "majcp071102kaiser");
+            
             sentencia = conexion.createStatement();
             /*JOptionPane.showMessageDialog(null, "si conecta");*/
         }

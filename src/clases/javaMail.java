@@ -21,7 +21,7 @@ public class javaMail {
     clsParametros objParametros = new clsParametros();
     private void init() {
         properties.put("mail.smtp.host", objParametros.consultaValor("email_host"));//"smtp.live.com""smtp.gmail.com"
-        properties.put("mail.smtp.starttls.enable", "true");        
+        //properties.put("mail.smtp.starttls.enable", "true");        
         properties.put("mail.smtp.port", objParametros.consultaValor("email_host_port"));//587
         properties.put("mail.smtp.mail.sender", objParametros.consultaValor("email_envia"));
         properties.put("mail.smtp.password", objParametros.consultaValor("email_pass"));

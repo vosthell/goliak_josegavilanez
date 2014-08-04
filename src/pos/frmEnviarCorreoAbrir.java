@@ -6,6 +6,7 @@ package pos;
 
 import clases.clsCaja;
 import clases.clsEmail;
+import clases.clsParametros;
 import clases.clsUtils;
 import clases.javaMail;
 import index.main;
@@ -20,6 +21,7 @@ public class frmEnviarCorreoAbrir extends javax.swing.JDialog {
     clsUtils objUtils = new clsUtils();
     clsCaja objCaja = new clsCaja();
     clsEmail objEmail = new clsEmail();
+    clsParametros objParametros = new clsParametros();
     /**
      * Creates new form frmEnviarCorreo
      */
@@ -47,10 +49,12 @@ public class frmEnviarCorreoAbrir extends javax.swing.JDialog {
                     + main.nameUser
                     + ", ABRIO CAJA CON: $ " + valor + "</BR>"
                     + " OBSERVACION: " + observacion;
+            texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
             ArrayList<clsEmail> dataEmail = objEmail.consultarEmails("1");        
             for(int i=0;i<dataEmail.size();i=i+1)
             {
                 mail.send(dataEmail.get(i).getEmail(),"APERTURA DE CAJA", texto);
+                System.out.println("SE ENVIO CORREO A: " + dataEmail.get(i).getEmail());
             }
             /*mail.send("vosthell@hotmail.com","APERTURA DE CAJA", texto);
            mail.send("c.kaiser.a@hotmail.com","APERTURA DE CAJA", texto);
@@ -65,7 +69,7 @@ public class frmEnviarCorreoAbrir extends javax.swing.JDialog {
         }
         catch(Exception e){
             //e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error al imprimir", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error al Enviar correo", JOptionPane.ERROR_MESSAGE);
         }
         //this.dispose();
         btnOK.setEnabled(true);

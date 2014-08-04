@@ -160,6 +160,36 @@ public class clsParametros {
         return cantidad;
     } 
     
+    public String consultaValor2(String nombre)
+    {       
+         String cantidad = "";
+         try{
+            bd.conectarBaseDeDatos2();
+            sql = "SELECT valor "
+                    + "  FROM ck_parametros"
+                    + " WHERE descripcion='" + nombre + "'"
+                    + " AND estado = 'A'";
+            //System.out.println(sql);
+            bd.resultado = bd.sentencia.executeQuery(sql);
+             
+            if(bd.resultado.next())
+            {               
+                cantidad = bd.resultado.getString("valor");               
+            }
+            else
+            { 
+                cantidad = "";
+            }            
+        }
+        catch(Exception ex)
+        {
+            System.out.print(ex);
+            cantidad = "";
+        }           
+        bd.desconectarBaseDeDatos();
+        return cantidad;
+    } 
+    
     //Consultar el porcentaje de la cuota inicial; si la deuda era 300 la cuota inicial es 90
     public Double consultaPorcentajeCuotaInicial()
     {       
