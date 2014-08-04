@@ -1904,6 +1904,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                + "<TR><TD>DESCUENTO:</TD><TD>" + descuento + "</TD></TR>"
                                + "<TR><TD>TOTAL DE FACTURA:</TD><TD>" + totalFactura + "</TD></TR>"           
                         + "</TABLE></BR>"; 
+               texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
 
                javaMail mail = new javaMail();
                //DESCUENTO

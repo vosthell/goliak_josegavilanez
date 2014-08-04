@@ -112,6 +112,7 @@ public class frmEnviarCorreo extends javax.swing.JDialog {
                 
             }
             texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
+            
             ArrayList<clsEmail> dataEmail = objEmail.consultarEmails("2");        
             for(int i=0;i<dataEmail.size();i=i+1)
             {
