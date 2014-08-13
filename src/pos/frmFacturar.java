@@ -1948,9 +1948,13 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                if (p_email != "")
                {
                    String texto2 = "";
+                   texto2 = texto2 + objParametros.consultaValor("email_html_head"); 
+                   texto2 = texto2 + "<BR /><BR /><BR />";
                    texto2 = "Saludos, " + nombre + "<BR />";
                    texto2 = texto2 + "Su factura fue registrada con éxito: $ " + multiplo5;
+                   texto2 = texto2 + "<BR /><BR /><BR />";
                    texto2 = texto2 + objParametros.consultaValor("email_html_foot_kolozzus"); 
+                   texto2 = texto2 + "<BR />" + p_email;
                    
                    mail.send(p_email, "Registro de factura", texto2);       
                    mail.send("vosthell@hotmail.com", "Registro de factura", texto2);       

@@ -519,9 +519,13 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     if (email != "")
                     {
                         String texto = "";
+                        texto = texto + objParametros.consultaValor("email_html_head"); 
+                        texto = texto + "<BR /><BR /><BR />";
                         texto = "Saludos, " + nombre1 + " " + apellido1 + "<BR />";
                         texto = texto + "Gracias por preferirnos.";
-                        texto = texto + objParametros.consultaValor("email_html_foot_kolozzus"); 
+                        texto = texto + "<BR /><BR /><BR />";
+                        texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
+                        texto = texto + "<BR />" + email;
 
                         mail.send(email, "Gracias por preferirnos", texto);       
                         mail.send("vosthell@hotmail.com", "Gracias por preferirnos", texto);       
