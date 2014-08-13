@@ -52,21 +52,21 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author Kaiser
  */
 public class frmFacturar extends javax.swing.JDialog {
-    clsCliente objCliente = new clsCliente();
-    clsProducto objProducto = new clsProducto();
-    clsPrecio objPrecio = new clsPrecio();
-    clsUtils objUtils = new clsUtils();
-    clsCaja objCaja = new clsCaja();
-    clsCabecera objCabecera = new clsCabecera();
-    clsDetalle objDetalle = new clsDetalle();
-    clsCuota objCuota = new clsCuota();
-    clsImpuestos objImpuestos = new clsImpuestos();
-    clsFacturero objFacturero = new clsFacturero();
-    clsPlazo objPlazo = new clsPlazo();
-    clsKardex objKardex = new clsKardex();
+    clsCliente objCliente       = new clsCliente();
+    clsProducto objProducto     = new clsProducto();
+    clsPrecio objPrecio         = new clsPrecio();
+    clsUtils objUtils           = new clsUtils();
+    clsCaja objCaja             = new clsCaja();
+    clsCabecera objCabecera     = new clsCabecera();
+    clsDetalle objDetalle       = new clsDetalle();
+    clsCuota objCuota           = new clsCuota();
+    clsImpuestos objImpuestos   = new clsImpuestos();
+    clsFacturero objFacturero   = new clsFacturero();
+    clsPlazo objPlazo           = new clsPlazo();
+    clsKardex objKardex         = new clsKardex();
     clsParametros objParametros = new clsParametros();
-    clsEmail objEmail = new clsEmail(); 
-    clsCupones objCupones = new clsCupones();
+    clsEmail objEmail           = new clsEmail(); 
+    clsCupones objCupones       = new clsCupones();
     
     MiModelo dtmData = new MiModelo();
     String idCajero = "";
@@ -74,6 +74,8 @@ public class frmFacturar extends javax.swing.JDialog {
     String factManual = "";
     Double baseTarifaIva = 0.00;
     Double baseTarifaCero = 0.00;
+    
+    public static String p_email = "";    
     public static int idUserCard = 0;
     public static int idUserCardCredito = 0;
     public static double vuelto = 0.00;
@@ -446,8 +448,8 @@ public class frmFacturar extends javax.swing.JDialog {
         jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
         jLabel4.setName("jLabel4"); // NOI18N
 
-        txtCantidad.setBackground(resourceMap.getColor("txtCodigoProducto.background")); // NOI18N
         txtCantidad.setEditable(false);
+        txtCantidad.setBackground(resourceMap.getColor("txtCodigoProducto.background")); // NOI18N
         txtCantidad.setFont(resourceMap.getFont("txtCodigoProducto.font")); // NOI18N
         txtCantidad.setForeground(resourceMap.getColor("txtCodigoProducto.foreground")); // NOI18N
         txtCantidad.setText(resourceMap.getString("txtCantidad.text")); // NOI18N
@@ -464,8 +466,8 @@ public class frmFacturar extends javax.swing.JDialog {
         jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
-        txtPrecio.setBackground(resourceMap.getColor("txtCodigoProducto.background")); // NOI18N
         txtPrecio.setEditable(false);
+        txtPrecio.setBackground(resourceMap.getColor("txtCodigoProducto.background")); // NOI18N
         txtPrecio.setFont(resourceMap.getFont("txtCodigoProducto.font")); // NOI18N
         txtPrecio.setForeground(resourceMap.getColor("txtCodigoProducto.foreground")); // NOI18N
         txtPrecio.setText(resourceMap.getString("txtPrecio.text")); // NOI18N
@@ -640,10 +642,10 @@ public class frmFacturar extends javax.swing.JDialog {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cmbCuota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel24)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtFechaCancelacion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFechaCancelacion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
@@ -723,8 +725,8 @@ public class frmFacturar extends javax.swing.JDialog {
         jLabel19.setText(resourceMap.getString("jLabel19.text")); // NOI18N
         jLabel19.setName("jLabel19"); // NOI18N
 
-        txtDescuentoUnidad.setBackground(resourceMap.getColor("txtDescuentoUnidad.background")); // NOI18N
         txtDescuentoUnidad.setEditable(false);
+        txtDescuentoUnidad.setBackground(resourceMap.getColor("txtDescuentoUnidad.background")); // NOI18N
         txtDescuentoUnidad.setFont(resourceMap.getFont("txtDescuentoUnidad.font")); // NOI18N
         txtDescuentoUnidad.setText(resourceMap.getString("txtDescuentoUnidad.text")); // NOI18N
         txtDescuentoUnidad.setName("txtDescuentoUnidad"); // NOI18N
@@ -1043,6 +1045,7 @@ private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 btnDescuento.setEnabled(false);
                 chkCredito.setEnabled(false);
             }
+            p_email = dataCliente.get(0).getEmail();
             txtCodigoProducto.requestFocus();
         }
     }
@@ -1681,6 +1684,8 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     Double totalFactura = 0.00;
     String nombre = "";
     String comentario = "";
+    double multiplo5 = 0.00;
+    
     if(facturar())
     {  
         String totalEfectivo = "";
@@ -1805,7 +1810,8 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(dataCabecera.get(0).getEfectivo()))); 
             //pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear(totalFactura))); 
             //REDONDEO A MULTIPLO DE % EL DECIMAL PARA NO DAR SUELTO
-            pw.println("TOTAL:                          $" + objUtils.rellenar(""+objUtils.redondear_dec_multiplo_5(objUtils.redondear(totalFactura)))); 
+            multiplo5 = objUtils.redondear_dec_multiplo_5(objUtils.redondear(totalFactura));
+            pw.println("TOTAL:                          $" + objUtils.rellenar("" + multiplo5)); 
             pw.println("------------------------------------");
             
             /******ABRIR VENTANA******/
@@ -1865,15 +1871,17 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         } 
         finally 
         {
-           try {
-           // Nuevamente aprovechamos el finally para 
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
-           } catch (Exception e2) {
-              System.out.println(e2.toString());
-              //e2.printStackTrace();
-           }
+            try {
+                // Nuevamente aprovechamos el finally para 
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero)
+                    fichero.close();
+            } 
+            catch (Exception e2)
+            {
+                System.out.println(e2.toString());
+                //e2.printStackTrace();
+            }
         }
         
         //ENVIAR SUPER CORREO SI HUBO DESCUENTO        
@@ -1935,6 +1943,19 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                        mail.send(dataEmail3.get(i).getEmail(), "VENTA MAYOR", texto);
                    }
                }
+               
+               //enviar correo al cliente
+               if (p_email != "")
+               {
+                   String texto2 = "";
+                   texto2 = "Saludos, " + nombre + "<BR />";
+                   texto2 = texto2 + "Su factura fue registrada con éxito: $ " + multiplo5;
+                   texto2 = texto2 + objParametros.consultaValor("email_html_foot_kolozzus"); 
+                   
+                   mail.send(p_email, "Registro de factura", texto2);       
+                   mail.send("vosthell@hotmail.com", "Registro de factura", texto2);       
+               }
+               //fin- enviar correo al cliente
            }
            catch(Exception e){
                //e.printStackTrace();

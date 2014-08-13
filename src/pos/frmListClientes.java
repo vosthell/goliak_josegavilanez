@@ -173,6 +173,9 @@ public class frmListClientes extends javax.swing.JDialog {
                 frmFacturar.codigoCliente = Integer.parseInt(codigo);
                 frmFacturar.txtCedula.setText(cedula);
                 frmFacturar.txtNombreCliente.setText(nombre);
+                
+                ArrayList<clsCliente> dataCliente = objCliente.consultarDataCliente(cedula);
+                frmFacturar.p_email = dataCliente.get(0).getEmail();
            }
            else if(p_tipo.equals("2"))
            {

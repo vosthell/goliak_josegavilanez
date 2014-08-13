@@ -19,6 +19,7 @@ import clases.clsProvincia;
 import clases.clsRecinto;
 import clases.clsTermino;
 import clases.clsUtils;
+import clases.javaMail;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -30,13 +31,14 @@ import javax.swing.JOptionPane;
  * @author Kaiser
  */
 public class frmClienteAdd extends javax.swing.JInternalFrame {
-    clsProvincia objProvincia = new clsProvincia();
-    clsTermino objTermino = new clsTermino();
-    clsRecinto objRecinto = new clsRecinto();
-    clsCliente objCliente = new clsCliente();
-    clsUtils objUtils = new clsUtils();
-    clsAuditoria objAuditoria = new clsAuditoria();
-    clsCiudad objCiudad = new clsCiudad();
+    clsProvincia    objProvincia = new clsProvincia();
+    clsTermino      objTermino = new clsTermino();
+    clsRecinto      objRecinto = new clsRecinto();
+    clsCliente      objCliente = new clsCliente();
+    clsUtils        objUtils = new clsUtils();
+    clsAuditoria    objAuditoria = new clsAuditoria();
+    clsCiudad       objCiudad = new clsCiudad();
+    clsParametros   objParametros = new clsParametros();
     
     boolean exito = false;
     /** Creates new form frmClienteAdd */
@@ -463,22 +465,37 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         clsComboBox objCiudadSelect = (clsComboBox)cmbCiudad.getSelectedItem();
         clsComboBox objTerminoSelect = (clsComboBox)cmbTermino.getSelectedItem();
         clsComboBox objRecintoSelect = (clsComboBox)cmbRecinto.getSelectedItem();
-        exito = objCliente.insertarRegistro(txtCedula.getText().toString(), txtNombre1.getText().toUpperCase().toString(),
-                                            txtNombre2.getText().toUpperCase().toString(), txtApellido1.getText().toUpperCase().toString(),
-                                            txtApellido2.getText().toUpperCase().toString(), txtConvencional.getText().toString(),
-                                            txtCelular.getText().toString(), txtDireccion.getText().toString(),
-                                            objCiudadSelect.getCodigo(), txtCredito.getText().toString(),
-                                            objProvinciaSelect.getCodigo(), objTerminoSelect.getCodigo(),
-                                            objRecintoSelect.getCodigo(), txtEmail.getText().toString());
+        
+        String cedula       = txtCedula.getText().toString().trim();
+        String nombre1      = txtNombre1.getText().toUpperCase().toString().trim();
+        String nombre2      = txtNombre2.getText().toUpperCase().toString().trim();
+        String apellido1    = txtApellido1.getText().toUpperCase().toString().trim();
+        String apellido2    = txtApellido2.getText().toUpperCase().toString().trim();
+        String email        = txtEmail.getText().toString().trim();
+        
+        exito = objCliente.insertarRegistro(cedula, 
+                nombre1,
+                nombre2, 
+                apellido1,
+                apellido2, 
+                txtConvencional.getText().toString(),
+                txtCelular.getText().toString(), 
+                txtDireccion.getText().toString(),
+                objCiudadSelect.getCodigo(), 
+                txtCredito.getText().toString(),
+                objProvinciaSelect.getCodigo(), 
+                objTerminoSelect.getCodigo(),
+                objRecintoSelect.getCodigo(), 
+                email);
         if (exito)
         {
             JOptionPane.showMessageDialog(this, objUtils.exitoGuardar, objUtils.tituloVentanaMensaje, JOptionPane.INFORMATION_MESSAGE);
             objAuditoria.insertarAuditoria("frmClienteAdd", "INGRESO DEL CLIENTE: "+
-                                            txtCedula.getText().toString()+" - "+
-                                            txtApellido1.getText().toUpperCase().toString()+" "+
-                                            txtApellido2.getText().toUpperCase().toString()+" "+
-                                            txtNombre1.getText().toUpperCase().toString()+" "+
-                                            txtNombre2.getText().toUpperCase().toString(), "3");
+                                            cedula      + " - " +
+                                            apellido1   + " " +
+                                            apellido2   + " " +
+                                            nombre1     + " " +
+                                            nombre2, "3");
                 
             //dispose();
             txtCedula.setText("");
@@ -491,16 +508,41 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             txtDireccion.setText("");
             txtCredito.setText("0");
             //txtCiudad.setText("BABA");
+            
+            //ENVIAR CORREO AL CLIENTE
+            String email_habilitado = objParametros.consultaValor("email_habilitado");
+            if(email_habilitado.equals("1"))
+            {    
+                try
+                {
+                    javaMail mail = new javaMail();                
+                    if (email != "")
+                    {
+                        String texto = "";
+                        texto = "Saludos, " + nombre1 + " " + apellido1 + "<BR />";
+                        texto = texto + "Gracias por preferirnos.";
+                        texto = texto + objParametros.consultaValor("email_html_foot_kolozzus"); 
+
+                        mail.send(email, "Gracias por preferirnos", texto);       
+                        mail.send("vosthell@hotmail.com", "Gracias por preferirnos", texto);       
+                    }
+                }
+                catch(Exception e){
+                    //e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, e.getMessage(), "Error al enviar por correo", JOptionPane.ERROR_MESSAGE);
+                }     
+            }
+            //FIN - ENVIAR CORREO AL CLIENTE
         }
         else
         {
             JOptionPane.showMessageDialog(this, objUtils.errorGuardar, objUtils.tituloVentanaMensaje, JOptionPane.WARNING_MESSAGE);
             objAuditoria.insertarAuditoria("frmClienteAdd", "INTENTÓ INGRESAR CLIENTE: "+
-                                            txtCedula.getText().toString()+" - "+
-                                            txtApellido1.getText().toUpperCase().toString()+" "+
-                                            txtApellido2.getText().toUpperCase().toString()+" "+
-                                            txtNombre1.getText().toUpperCase().toString()+" "+
-                                            txtNombre2.getText().toUpperCase().toString(), "3");
+                                            cedula      + " - " +
+                                            apellido1   + " " +
+                                            apellido2   + " " +
+                                            nombre1     + " " +
+                                            nombre2, "3");
         }
     }
 }//GEN-LAST:event_btnGuardarActionPerformed

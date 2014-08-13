@@ -315,7 +315,7 @@ public class clsCliente {
         try{
             bd.conectarBaseDeDatos();
             sql = "SELECT codigo, cedula, name_completo, verificado_deudas,"
-                    + " direccion, tlf_convencional, tlf_celular"
+                        + " direccion, tlf_convencional, tlf_celular, email"
                     + " FROM ck_cliente"
                     + " WHERE cedula = '" + cedula + "'"
                     + " AND estado = 'A'";
@@ -330,6 +330,7 @@ public class clsCliente {
                 oListaTemporal.setDireccion(bd.resultado.getString("direccion"));
                 oListaTemporal.setTlfCelular(bd.resultado.getString("tlf_celular"));
                 oListaTemporal.setTlfConvencional(bd.resultado.getString("tlf_convencional"));
+                oListaTemporal.setEmail(bd.resultado.getString("email"));
                 data.add(oListaTemporal);
             }
             //return data;            

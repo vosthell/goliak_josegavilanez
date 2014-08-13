@@ -967,12 +967,19 @@ public final class frmClienteMod extends javax.swing.JInternalFrame {
             /*DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
             Date date1= txtFechaNacimiento.getDate();
             String fechaNac = df1.format(date1);*/
+            String cedula       = txtCedula.getText().toString().trim();
+            String nombre1      = txtNombre1.getText().toUpperCase().toString().trim();
+            String nombre2      = txtNombre2.getText().toUpperCase().toString().trim();
+            String apellido1    = txtApellido1.getText().toUpperCase().toString().trim();
+            String apellido2    = txtApellido2.getText().toUpperCase().toString().trim();
+            String email        = txtEmail.getText().toString().trim();
+            
             exito = objCliente.modificarRegistro(codigoCliente, 
-                    txtCedula.getText().toString(),
-                    this.txtNombre1.getText().toUpperCase().toString(),
-                    this.txtNombre2.getText().toUpperCase().toString(), 
-                    this.txtApellido1.getText().toUpperCase().toString(), 
-                    this.txtApellido2.getText().toUpperCase().toString(),
+                    cedula,
+                    nombre1,
+                    nombre2, 
+                    apellido1, 
+                    apellido2,
                     this.txtConvencional.getText().toString(), 
                     this.txtCelular.getText().toString(),
                     this.txtDireccion.getText().toString(), 
@@ -981,27 +988,27 @@ public final class frmClienteMod extends javax.swing.JInternalFrame {
                     objTerminoSelect.getCodigo(),
                     objRecintoSelect.getCodigo(),
                     this.txtCredito.getText().toString(),
-                    txtEmail.getText());
+                    email);
             if (exito)
             {
                 JOptionPane.showMessageDialog(this, "Datos modificados con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);
                 objAuditoria.insertarAuditoria("frmClienteMod", "MODIFICO DATOS DEL CLIENTE: "+
-                                            txtCedula.getText().toString()+" - "+
-                                            txtApellido1.getText().toUpperCase().toString()+" "+
-                                            txtApellido2.getText().toUpperCase().toString()+" "+
-                                            txtNombre1.getText().toUpperCase().toString()+" "+
-                                            txtNombre2.getText().toUpperCase().toString(), "3");
+                                            cedula      + " - "+
+                                            apellido1   + " " +
+                                            apellido2   + " " +
+                                            nombre1     + " " +
+                                            nombre2     , "3");
                  dispose();
             }
             else
             {
                 JOptionPane.showMessageDialog(this, "Error al guardar información", "Atención!", JOptionPane.WARNING_MESSAGE);
                 objAuditoria.insertarAuditoria("frmClienteMod", "INTENTÓ MODIFICAR DATOS DEL CLIENTE: "+
-                                            txtCedula.getText().toString()+" - "+
-                                            txtApellido1.getText().toUpperCase().toString()+" "+
-                                            txtApellido2.getText().toUpperCase().toString()+" "+
-                                            txtNombre1.getText().toUpperCase().toString()+" "+
-                                            txtNombre2.getText().toUpperCase().toString(), "3");
+                                            cedula      + " - "+
+                                            apellido1   + " " +
+                                            apellido2   + " " +
+                                            nombre1     + " " +
+                                            nombre2, "3");
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
