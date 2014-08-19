@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class clsUtils {
     public String versionID = "1.20";
-    public String versionFecha = " (2014.07.12.11.42)";
+    public String versionFecha = " (2014.08.18.11.42)";
     public String version = versionID + versionFecha;
     //MENSAJE CUANDO NO TIENE PERMISOS PARA ABRIR FORMULARIO
     public String msgSinPermisosFormulario = "USTED NO TIENE PERMISOS PARA ABRIR ESTE FORMULARIO.";

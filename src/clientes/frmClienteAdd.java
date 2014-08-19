@@ -473,6 +473,16 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String apellido2    = txtApellido2.getText().toUpperCase().toString().trim();
         String email        = txtEmail.getText().toString().trim();
         
+        String nombre_completo = "";
+        if(apellido1.length()>0)
+            nombre_completo = nombre_completo + apellido1;
+        if(apellido2.length()>0)
+            nombre_completo = nombre_completo + " " + apellido2;
+        if(nombre1.length()>0)
+            nombre_completo = nombre_completo + " " + nombre1;
+        if(nombre2.length()>0)
+            nombre_completo = nombre_completo + " " + nombre2;
+        
         exito = objCliente.insertarRegistro(cedula, 
                 nombre1,
                 nombre2, 
@@ -486,7 +496,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 objProvinciaSelect.getCodigo(), 
                 objTerminoSelect.getCodigo(),
                 objRecintoSelect.getCodigo(), 
-                email);
+                email,
+                nombre_completo);
         if (exito)
         {
             JOptionPane.showMessageDialog(this, objUtils.exitoGuardar, objUtils.tituloVentanaMensaje, JOptionPane.INFORMATION_MESSAGE);

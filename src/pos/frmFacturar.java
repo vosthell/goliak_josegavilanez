@@ -1902,7 +1902,8 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         if(email_habilitado.equals("1"))
         {    
             try{
-               String texto = "EL USUARIO: " 
+               String texto = objParametros.consultaValor("email_html_head"); 
+               texto = texto + "EL USUARIO: " 
                        + main.nameUser+ ", REGISTRÓ UN " + strDescuento + " " + strCredito + ".</BR></BR>"
                        + "COMENTARIO: " + comentario + "</BR>"
                        + "<TABLE BORDER=\"1\">"
@@ -1913,6 +1914,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                + "<TR><TD>TOTAL DE FACTURA:</TD><TD>" + totalFactura + "</TD></TR>"           
                         + "</TABLE></BR>"; 
                texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
+               texto = texto + "<BR />" + p_email;
 
                javaMail mail = new javaMail();
                //DESCUENTO

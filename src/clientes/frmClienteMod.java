@@ -974,6 +974,16 @@ public final class frmClienteMod extends javax.swing.JInternalFrame {
             String apellido2    = txtApellido2.getText().toUpperCase().toString().trim();
             String email        = txtEmail.getText().toString().trim();
             
+            String nombre_completo = "";
+            if(apellido1.length()>0)
+                nombre_completo = nombre_completo + apellido1;
+            if(apellido2.length()>0)
+                nombre_completo = nombre_completo + " " + apellido2;
+            if(nombre1.length()>0)
+                nombre_completo = nombre_completo + " " + nombre1;
+            if(nombre2.length()>0)
+                nombre_completo = nombre_completo + " " + nombre2;
+        
             exito = objCliente.modificarRegistro(codigoCliente, 
                     cedula,
                     nombre1,
@@ -988,7 +998,8 @@ public final class frmClienteMod extends javax.swing.JInternalFrame {
                     objTerminoSelect.getCodigo(),
                     objRecintoSelect.getCodigo(),
                     this.txtCredito.getText().toString(),
-                    email);
+                    email,
+                    nombre_completo);
             if (exito)
             {
                 JOptionPane.showMessageDialog(this, "Datos modificados con éxito", "Atención!", JOptionPane.INFORMATION_MESSAGE);

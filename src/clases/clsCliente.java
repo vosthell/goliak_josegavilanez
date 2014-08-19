@@ -381,7 +381,7 @@ public class clsCliente {
     
     public boolean insertarRegistro(String cedula, String n1, String n2, String a1, 
             String a2, String convencional, String celular, String direccion, String ciudad, 
-            String credito, String prov, String termino, String recinto, String email)
+            String credito, String prov, String termino, String recinto, String email, String nombre_completo)
     {       
         boolean exito;
         try
@@ -392,7 +392,7 @@ public class clsCliente {
                     + " apellido1, apellido2, name_completo, tlf_convencional,"
                     + " tlf_celular, cedula, direccion, provincia, "
                     + " id_termino, creditoMax, id_ciudad, id_recinto, fecha_registro, email)"
-                    + " VALUES('" + n1 + "', '" + n2 + "', '" + a1 + "', '" + a2 + "', '" + a1 +" "+a2+" "+n1+" "+n2+"', "
+                    + " VALUES('" + n1 + "', '" + n2 + "', '" + a1 + "', '" + a2 + "', '" + nombre_completo + "', "
                     + " '"+convencional+"', '"+celular+"', '"+cedula+"', '"+direccion+"', '"+prov+"', " +termino
                     + ", "+credito+", '"+ciudad+"', "+recinto+", now(), '"+ email +"')";           
             System.out.println("SQL enviado:" + sql);
@@ -510,7 +510,12 @@ public class clsCliente {
         return data;        
     }
     
-    public boolean modificarRegistro(int p_codigo, String p_cedula, String p_nombre1, String p_nombre2, String p_apellido1, String p_apellido2, String p_convencional, String p_celular, String p_direccion, String p_provincia, String p_ciudad, String p_terminos, String p_recinto, String p_credito, String p_email)
+    public boolean modificarRegistro(int p_codigo, String p_cedula, 
+            String p_nombre1, String p_nombre2, String p_apellido1, 
+            String p_apellido2, String p_convencional, String p_celular, 
+            String p_direccion, String p_provincia, String p_ciudad, 
+            String p_terminos, String p_recinto, String p_credito, 
+            String p_email, String p_nombre_completo)
     {
         boolean exito = false;
         try
@@ -529,7 +534,7 @@ public class clsCliente {
                         + " id_termino = " + p_terminos + ", "
                         + " creditomax = " + p_credito + ", "
                         + " id_ciudad = " + p_ciudad + ", "
-                        + " name_completo = '" + p_apellido1 + " " + p_apellido2 + " " + p_nombre2 + " " + p_nombre1 + "', "
+                        + " name_completo = '" + p_nombre_completo + "', "
                         + " id_recinto = " + p_recinto + ", "
                         + " email = '" + p_email + "'" 
                     + " WHERE codigo = " + p_codigo;      
