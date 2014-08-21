@@ -1923,7 +1923,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                    ArrayList<clsEmail> dataEmail = objEmail.consultarEmails("6");        
                    for(int i=0;i<dataEmail.size();i=i+1)
                    {
-                       mail.send(dataEmail.get(i).getEmail(), "DESCUENTO - FACTURA", texto);
+                       mail.send(dataEmail.get(i).getEmail(), objParametros.consultaValor("email_asunto")+" - DESCUENTO EN FACTURA", texto);
                    }
                }
                //CREDITO 
@@ -1932,7 +1932,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                    ArrayList<clsEmail> dataEmail2 = objEmail.consultarEmails("7");        
                    for(int i=0;i<dataEmail2.size();i=i+1)
                    {
-                       mail.send(dataEmail2.get(i).getEmail(), "CREDITO - FACTURA", texto);
+                       mail.send(dataEmail2.get(i).getEmail(), objParametros.consultaValor("email_asunto")+" - CREDITO EN FACTURA", texto);
                    }
                }
                
@@ -1942,7 +1942,7 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                    ArrayList<clsEmail> dataEmail3 = objEmail.consultarEmails("10");        
                    for(int i=0;i<dataEmail3.size();i=i+1)
                    {
-                       mail.send(dataEmail3.get(i).getEmail(), "VENTA MAYOR", texto);
+                       mail.send(dataEmail3.get(i).getEmail(), objParametros.consultaValor("email_asunto")+" - VENTA MAYOR", texto);
                    }
                }
                
@@ -1958,8 +1958,8 @@ private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                    texto2 = texto2 + objParametros.consultaValor("email_html_foot_kolozzus"); 
                    texto2 = texto2 + "<BR />" + p_email;
                    
-                   mail.send(p_email, "Registro de factura", texto2);       
-                   mail.send("vosthell@hotmail.com", "Registro de factura", texto2);       
+                   mail.send(p_email, objParametros.consultaValor("email_asunto")+" - Registro de factura", texto2);       
+                   mail.send("vosthell@hotmail.com", objParametros.consultaValor("email_asunto")+" - Registro de factura", texto2);       
                }
                //fin- enviar correo al cliente
            }

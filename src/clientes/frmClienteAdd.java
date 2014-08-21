@@ -538,8 +538,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                         texto = texto + objParametros.consultaValor("email_html_foot_kolozzus");
                         texto = texto + "<BR />" + email;
 
-                        mail.send(email, "Gracias por preferirnos", texto);       
-                        mail.send("vosthell@hotmail.com", "Gracias por preferirnos", texto);       
+                        mail.send(email, objParametros.consultaValor("email_asunto")+" - Gracias por preferirnos", texto);       
+                        mail.send("vosthell@hotmail.com", objParametros.consultaValor("email_asunto")+" - Gracias por preferirnos", texto);       
                     }
                 }
                 catch(Exception e){
